@@ -1,0 +1,17 @@
+{
+  "name": "journey-audit",
+  "owner": {"name": "aleksandrermolov87-cloud", "url": "https://github.com/aleksandrermolov87-cloud"},
+  "metadata": {"description": "Customer journey audit skills and agents", "version": "1.0.0"},
+  "plugins": [
+    {
+      "name": "journey-audit",
+      "source": "./",
+      "description": "Multi-agent customer journey audit for AI-generated CJMs and user flows: three parallel auditors (CJM logic, edge-case scenarios, simulated cognitive load) and a verdict agent that returns priorities P0–P2, goals with metrics and fix specs. English and Russian.",
+      "version": "1.0.0",
+      "category": "design",
+      "license": "MIT",
+      "keywords": ["customer-journey-map","cjm","user-journey","ux-audit","usability","edge-cases","cognitive-load","service-blueprint","synthetic-users","personas","heuristic-evaluation","klm","product-design","ux-research","agent-skills","subagents"],
+      "homepage": "https://github.com/aleksandrermolov87-cloud/journey-audit"
+    }
+  ]
+}

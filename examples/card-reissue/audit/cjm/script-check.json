@@ -1,0 +1,86 @@
+[
+ {
+  "id": "L04",
+  "severity": "medium",
+  "step": "s2",
+  "text": "Looks like several actions in one step: «Taps the card tile and then opens card settings»"
+ },
+ {
+  "id": "L05",
+  "severity": "medium",
+  "step": "s3",
+  "text": "Recovery from failure is unknown: «Chooses temporary block, cannot order a new card later»"
+ },
+ {
+  "id": "L10",
+  "severity": "high",
+  "step": "s3",
+  "text": "Moment of truth without evidence: a hypothesis"
+ },
+ {
+  "id": "L13",
+  "severity": "high",
+  "step": "s4",
+  "text": "External system step without a described failure"
+ },
+ {
+  "id": "L14",
+  "severity": "medium",
+  "step": "s4",
+  "text": "Wait duration unknown: the user does not know how long to wait"
+ },
+ {
+  "id": "L19",
+  "severity": "medium",
+  "step": "s5",
+  "text": "Internal terms in what the user sees: BLOCKED_PERM"
+ },
+ {
+  "id": "L10",
+  "severity": "high",
+  "step": "s8",
+  "text": "Moment of truth without evidence: a hypothesis"
+ },
+ {
+  "id": "L13",
+  "severity": "high",
+  "step": "s9",
+  "text": "External system step without a described failure"
+ },
+ {
+  "id": "L05",
+  "severity": "high",
+  "step": "b1.s1",
+  "text": "Failure without a way out: «Card is not blocked»"
+ },
+ {
+  "id": "L14",
+  "severity": "high",
+  "step": "b1.s1",
+  "text": "Wait of 30 s without a status indicator"
+ },
+ {
+  "id": "L14",
+  "severity": "high",
+  "step": "b1.s1",
+  "text": "Wait of 30 s without cancel or leave-and-return"
+ },
+ {
+  "id": "L11",
+  "severity": "medium",
+  "step": null,
+  "text": "Assumed steps: 8 of 11 (73%)"
+ },
+ {
+  "id": "L12",
+  "severity": "high",
+  "step": "s10",
+  "text": "Main scenario ends with negative emotion while success is claimed"
+ },
+ {
+  "id": "L17",
+  "severity": "high",
+  "step": null,
+  "text": "V2: not covered by any step — The user can pay today with a virtual card"
+ }
+]

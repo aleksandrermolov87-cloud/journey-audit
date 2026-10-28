@@ -1,0 +1,60 @@
+{
+ "title": "Reissue a lost debit card",
+ "source": "ai",
+ "persona": {
+  "name": "Commuter, 47, lost the card on the way to work",
+  "tech": "mid",
+  "patience": "low",
+  "context": "mobile app on the phone, standing in a train, 10 minutes",
+  "goal": "block the lost card and get a new one without visiting a branch"
+ },
+ "jtbd": "Make sure nobody can spend my money and keep paying for things today",
+ "trigger": "Notices the wallet is missing at the station",
+ "scenario": "main",
+ "success": "The old card is blocked, a new card is ordered, and the user knows how to pay until it arrives",
+ "owner_vision": [
+  {"id": "V1", "expect": "Blocking takes one tap from the home screen", "steps": ["s2", "s3"], "origin": "owner"},
+  {"id": "V2", "expect": "The user can pay today with a virtual card", "steps": [], "origin": "owner"},
+  {"id": "V3", "expect": "Delivery date is shown before the user confirms", "steps": ["s8"], "origin": "owner"}
+ ],
+ "internal_terms": ["reissue_flow"],
+ "steps": [
+  {"id": "s1", "stage": "Notice", "actor": "user", "action": "Opens the banking app", "response": "Home screen with balance and card tile",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "Anxious: the wallet is gone", "src": "AI map, row 1", "assumption": true,
+   "load": {"decisions": 1, "max_options": 6, "uncertainty": 1, "klm": "M P B B"}},
+  {"id": "s2", "stage": "Block", "actor": "user", "action": "Taps the card tile and then opens card settings", "response": "Card screen with 9 actions",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "Has to search for the block action", "src": "AI map, row 2", "assumption": true,
+   "load": {"decisions": 2, "max_options": 9, "uncertainty": 1, "klm": "M P B B M P B B"}},
+  {"id": "s3", "stage": "Block", "actor": "user", "action": "Taps Block card", "response": "Dialog: Block temporarily or permanently?",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "Unclear which option stops spending and allows a new card", "moment_of_truth": true,
+   "src": "AI map, row 3", "assumption": true, "failure": "Chooses temporary block, cannot order a new card later", "recovery": "unknown",
+   "load": {"decisions": 1, "max_options": 2, "new_terms": 1, "uncertainty": 2, "klm": "M P B B"}},
+  {"id": "s4", "stage": "Block", "actor": "system", "action": "Card processing provider blocks the card", "response": "Spinner",
+   "channel": "mobile app", "status_feedback": true, "src": "AI map, row 3",
+   "load": {"wait_s": "unknown", "uncertainty": 1}},
+  {"id": "s5", "stage": "Block", "actor": "user", "action": "Reads the confirmation", "response": "Card status BLOCKED_PERM, reissue available",
+   "channel": "mobile app", "feeling": 1, "feeling_reason": "Money is safe", "src": "AI map, row 4", "assumption": true,
+   "load": {"decisions": 1, "max_options": 2, "new_terms": 2, "klm": "M"}},
+  {"id": "s6", "stage": "Reissue", "actor": "user", "action": "Taps Order a new card", "response": "Form: delivery address, card design, name on card",
+   "channel": "mobile app", "feeling": 0, "feeling_reason": "Expected a single tap, gets a form", "src": "AI map, row 5", "assumption": true,
+   "load": {"decisions": 2, "max_options": 8, "fields": 3, "klm": "M P B B"}},
+  {"id": "s7", "stage": "Reissue", "actor": "user", "action": "Types the delivery address", "response": "Address field with suggestions",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "Typing an address on a phone in a moving train", "src": "AI map, row 5", "assumption": true,
+   "load": {"decisions": 1, "max_options": 5, "fields": 2, "memory_items": 2, "context_switches": 1, "klm": "M P B B K*40 M P B B"}},
+  {"id": "s8", "stage": "Reissue", "actor": "user", "action": "Confirms the order", "response": "Order summary with fee and delivery in 5–7 days",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "A week without a card, and a fee nobody mentioned", "moment_of_truth": true,
+   "src": "AI map, row 6", "assumption": true,
+   "load": {"decisions": 1, "max_options": 2, "memory_items": 1, "uncertainty": 1, "klm": "M P B B"}},
+  {"id": "s9", "stage": "Reissue", "actor": "external", "action": "Card issuer accepts the order", "response": "Push notification",
+   "channel": "push", "src": "AI map, row 6", "load": {"wait_s": 3}},
+  {"id": "s10", "stage": "Done", "actor": "user", "action": "Closes the app", "response": "Home screen without a card tile",
+   "channel": "mobile app", "feeling": -1, "feeling_reason": "Still cannot pay for lunch today", "src": "AI map, row 7", "assumption": true,
+   "load": {"decisions": 1, "max_options": 3, "uncertainty": 2, "klm": "M P B B"}}
+ ],
+ "branches": [
+  {"id": "b1", "from": "s4", "title": "Blocking fails", "steps": [
+   {"id": "b1.s1", "actor": "system", "action": "Provider times out", "response": "Generic error", "failure": "Card is not blocked", "recovery": "",
+    "load": {"wait_s": 30, "uncertainty": 2}, "status_feedback": false}
+  ]}
+ ]
+}

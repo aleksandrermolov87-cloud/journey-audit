@@ -1,0 +1,246 @@
+{
+ "tech": "low",
+ "patience": "low",
+ "rows": [
+  {
+   "id": "s1",
+   "stage": "Notice",
+   "actor": "user",
+   "index": 35.0,
+   "level": "moderate",
+   "fatigue": 35.0,
+   "klm_s": 2.65,
+   "drivers": "decisions 20, uncertainty 8",
+   "parts": {
+    "decisions": 20.0,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 8.0
+   },
+   "exit_risk": [],
+   "feeling": -1
+  },
+  {
+   "id": "s2",
+   "stage": "Block",
+   "actor": "user",
+   "index": 45.8,
+   "level": "moderate",
+   "fatigue": 72.0,
+   "klm_s": 5.3,
+   "drivers": "decisions 29, uncertainty 8",
+   "parts": {
+    "decisions": 28.6,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 8.0
+   },
+   "exit_risk": [],
+   "feeling": -1
+  },
+  {
+   "id": "s3",
+   "stage": "Block",
+   "actor": "user",
+   "index": 44.9,
+   "level": "moderate",
+   "fatigue": 98.9,
+   "klm_s": 2.65,
+   "drivers": "uncertainty 16, decisions 14",
+   "parts": {
+    "decisions": 13.9,
+    "fields": 0.0,
+    "terms": 6.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 16.0
+   },
+   "exit_risk": [],
+   "feeling": -1
+  },
+  {
+   "id": "s4",
+   "stage": "Block",
+   "actor": "system",
+   "index": 10.0,
+   "level": "low",
+   "fatigue": 74.2,
+   "klm_s": 0.0,
+   "drivers": "uncertainty 8",
+   "parts": {
+    "decisions": 0.0,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 8.0
+   },
+   "exit_risk": [
+    "wait not estimated"
+   ],
+   "feeling": null
+  },
+  {
+   "id": "s5",
+   "stage": "Block",
+   "actor": "user",
+   "index": 32.4,
+   "level": "moderate",
+   "fatigue": 88.1,
+   "klm_s": 1.35,
+   "drivers": "decisions 14, new terms 12",
+   "parts": {
+    "decisions": 13.9,
+    "fields": 0.0,
+    "terms": 12.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 0.0
+   },
+   "exit_risk": [],
+   "feeling": 1
+  },
+  {
+   "id": "s6",
+   "stage": "Reissue",
+   "actor": "user",
+   "index": 36.9,
+   "level": "moderate",
+   "fatigue": 102.9,
+   "klm_s": 2.65,
+   "drivers": "decisions 22, fields 8",
+   "parts": {
+    "decisions": 22.0,
+    "fields": 7.5,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 0.0
+   },
+   "exit_risk": [],
+   "feeling": 0
+  },
+  {
+   "id": "s7",
+   "stage": "Reissue",
+   "actor": "user",
+   "index": 41.8,
+   "level": "moderate",
+   "fatigue": 119.0,
+   "klm_s": 25.3,
+   "drivers": "decisions 19, memory 12",
+   "parts": {
+    "decisions": 18.9,
+    "fields": 2.5,
+    "terms": 0.0,
+    "memory": 12.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 0.0
+   },
+   "exit_risk": [
+    "fatigue ≥ 100 with emotion ≤ −1"
+   ],
+   "feeling": -1
+  },
+  {
+   "id": "s8",
+   "stage": "Reissue",
+   "actor": "user",
+   "index": 34.9,
+   "level": "moderate",
+   "fatigue": 124.1,
+   "klm_s": 2.65,
+   "drivers": "decisions 14, uncertainty 8",
+   "parts": {
+    "decisions": 13.9,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 6.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 8.0
+   },
+   "exit_risk": [
+    "fatigue ≥ 100 with emotion ≤ −1"
+   ],
+   "feeling": -1
+  },
+  {
+   "id": "s9",
+   "stage": "Reissue",
+   "actor": "external",
+   "index": 11.2,
+   "level": "low",
+   "fatigue": 104.4,
+   "klm_s": 0.0,
+   "drivers": "wait 9",
+   "parts": {
+    "decisions": 0.0,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 9.0,
+    "uncertainty": 0.0
+   },
+   "exit_risk": [],
+   "feeling": null
+  },
+  {
+   "id": "s10",
+   "stage": "Done",
+   "actor": "user",
+   "index": 40.0,
+   "level": "moderate",
+   "fatigue": 118.3,
+   "klm_s": 2.65,
+   "drivers": "decisions 16, uncertainty 16",
+   "parts": {
+    "decisions": 16.0,
+    "fields": 0.0,
+    "terms": 0.0,
+    "memory": 0.0,
+    "context": 0.0,
+    "wait": 0.0,
+    "uncertainty": 16.0
+   },
+   "exit_risk": [
+    "fatigue ≥ 100 with emotion ≤ −1"
+   ],
+   "feeling": -1
+  }
+ ],
+ "total_klm_s": 45.2,
+ "peak": {
+  "id": "s2",
+  "stage": "Block",
+  "actor": "user",
+  "index": 45.8,
+  "level": "moderate",
+  "fatigue": 72.0,
+  "klm_s": 5.3,
+  "drivers": "decisions 29, uncertainty 8",
+  "parts": {
+   "decisions": 28.6,
+   "fields": 0.0,
+   "terms": 0.0,
+   "memory": 0.0,
+   "context": 0.0,
+   "wait": 0.0,
+   "uncertainty": 8.0
+  },
+  "exit_risk": [],
+  "feeling": -1
+ }
+}

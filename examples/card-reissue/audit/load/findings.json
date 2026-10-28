@@ -1,0 +1,174 @@
+{
+ "family": "load",
+ "journey": "journey.json",
+ "mode": "full",
+ "methods": [
+  "feature-refinement",
+  "load-index",
+  "KLM",
+  "fatigue",
+  "exit-points",
+  "persona-sensitivity",
+  "nielsen-krug",
+  "intrinsic-extraneous"
+ ],
+ "not_checked": [
+  "Screens of s1, s6, s8 — no screenshots",
+  "Real wait times of s4 and b1 — not in the source",
+  "Copy of the s3 dialog and b1 error"
+ ],
+ "summary": "7 findings: 3 high, 4 medium. Main persona (mid/low): no step above 36.6, F peaks at 99.3 on s8; low/low profile crosses the exit threshold at s7, s8, s10. s7 address typing is 25.3 of 45.2 s KLM. Branch b1 reaches 75.7 (overload) in low/low, based on a normalization-set 30 s wait.",
+ "report_md": "# Cognitive load · Reissue a lost debit card\n\nModel, not measurement. Index 0–100 with open weights (`skills/journey-load/references/cognitive-load.md`); KLM is error-free time of an experienced user. Main persona from `frame.md`: tech mid, patience low.\n\n## What was checked\n\n- Refined `load` features (3 changes, `load/load-overrides.json`).\n- Index, KLM, fatigue and exit points for four profiles: high/high, mid/mid, mid/low (main persona), low/low.\n- Branch b1 computed after s1–s3 so fatigue carries over.\n- Nielsen and Krug heuristics for steps with an exit point and for shared peaks.\n\n## Refinements\n\n| Step | Field | From → to | Reason |\n|---|---|---|---|\n| s6 | max_options | 8 → 3 | Map lists 3 form parts; number of card designs not given |\n| s7 | fields | 2 → 1 | Map shows one address field |\n| s7 | context_switches | 1 → 0 | Map does not say the address is looked up elsewhere |\n\nEffect on the main persona: s7 42.9 → 33.4; exit points at s7, s8, s10 (F 109.1, 109.7, 100.5) disappear, F peaks at 99.3 on s8. In low/low the exit points remain.\n\n## Load table (main persona mid/low · low/low)\n\n| Step | Index | Level | F | KLM, s | Main contributions |\n|---|---|---|---|---|---|\n| s1 | 28.0 · 35.0 | moderate | 28.0 · 35.0 | 2.65 | decisions 20, uncertainty 8 |\n| s2 | 36.6 · 45.8 | moderate | 57.6 · 72.0 | 5.3 | decisions 29, uncertainty 8 |\n| s3 | 35.9 · 44.9 | moderate | 79.2 · 98.9 | 2.65 | uncertainty 16, decisions 14 |\n| s4 (system) | 8.0 · 10.0 | low | 59.4 · 74.2 | — | wait unknown, uncertainty 8 |\n| s5 | 25.9 · 32.4 | moderate | 70.4 · 88.1 | 1.35 | decisions 14, terms 12 |\n| s6 | 29.5 · 36.9 | moderate | 82.3 · 102.9 | 2.65 | decisions 22, fields 8 |\n| s7 | 33.4 · 41.8 | moderate | 95.2 · **119.0** | 25.3 | decisions 19, memory 12 |\n| s8 | 27.9 · 34.9 | moderate | 99.3 · **124.1** | 2.65 | decisions 14, uncertainty 8 |\n| s9 (system) | 9.0 · 11.2 | low | 83.5 · 104.4 | — | wait 9 |\n| s10 | 32.0 · 40.0 | moderate | 94.6 · **118.3** | 2.65 | uncertainty 16, decisions 16 |\n\nBold: exit point (F ≥ 100 with low patience and emotion ≤ −1). Total KLM 45.2 s (mid, low), 36.4 s (high). Curve: `load/load-curve.svg` (low/low).\n\nNo step reaches 50 on the main path. The load is flat: 8 user steps between 25 and 46, none below 25, so fatigue builds without a recovery step.\n\nBranch b1 (blocking fails): b1.s1 60.6 (mid/low), 75.7 overload (low/low), 30 s wait without status, exit point. The 30 s comes from normalization.\n\n## Persona sensitivity\n\n| Profile | Peak | Max F | Exit points |\n|---|---|---|---|\n| high/high | s2 31.1 | 84.4 | — |\n| mid/mid | s2 36.6 | 99.3 | — |\n| mid/low (main) | s2 36.6 | 99.3 | — |\n| low/low | s2 45.8 | 124.1 | s7, s8, s10 |\n\n- Shared peak: s2 in every profile. Extraneous (menu depth, 9 options).\n- Switch steps: s7, s8, s10 become exit points only in low/low.\n- KLM: s7 typing is 25.3 s of 45.2 s; on a phone the gap between profiles is all in typing.\n- Not modelled: large font (form and summary scroll, more memory items), screen reader (spinner and live status at s4), one hand in a train (P costs more).\n\n## Findings\n\n| Id | Check | Severity | Steps | Title |\n|---|---|---|---|---|\n| LOAD-01 | C-s7 | high | s7 | Address typing takes 56% of KLM time |\n| LOAD-02 | C-s8 | high | s8 | Fee and delivery first shown at confirmation |\n| LOAD-03 | C-s4 | high | s4, b1.s1 | Unknown blocking wait; 30 s silent wait on failure |\n| LOAD-04 | C-s2 | medium | s1, s2 | Two screens and 9 actions before Block |\n| LOAD-05 | C-s3 | medium | s3 | Block type without consequences (useful friction) |\n| LOAD-06 | C-s5 | medium | s5 | Internal status BLOCKED_PERM on confirmation |\n| LOAD-07 | C-s10 | medium | s10 | No way to pay today at the end |\n\n## Intrinsic and extraneous\n\n| Step | Intrinsic (keep, present clearly) | Extraneous (lever) |\n|---|---|---|\n| s2 | — | Menu depth, 9 options → remove noise: Lost card on the home tile |\n| s3 | Choice of irreversible block | Unexplained options → familiar model: outcome-based labels, default |\n| s5 | Confirmation that money is safe | Internal status → user words |\n| s6–s7 | Confirming where to send the card | 40 keystrokes → take the work over: prefill address |\n| s8 | Accepting fee and delivery time | First mention of fee → show earlier |\n| s10 | — | Open question about paying today → take the work over: virtual card |\n\n## Hand over to other families\n\n- CJM: temporary block at s3 has no route to reissue (map's failure note, recovery unknown).\n- CJM: V2 virtual card has no step in the journey.\n- CJM: fee is a value issue not mentioned before s8.\n- Edge: b1 has no recovery; generic error text unknown.\n- Edge: home screen without a card tile at s10 — what the user sees on next login.\n\n## Not checked\n\n- No screens: s1 home screen options (6), card design count and summary layout not verified.\n- Real blocking and issuer wait times: not in the source; no wait scenario computed.\n- Copy of the s3 dialog and the error in b1.\n\n## Method notes\n\n- An exit point on the final step (s10) is read as leaving without a payment method, since the order is already placed.\n- Patience changes only waits and exit thresholds, so mid/mid and mid/low give the same user-step indices.\n",
+ "findings": [
+  {
+   "id": "LOAD-01",
+   "check": "C-s7",
+   "severity": "high",
+   "steps": [
+    "s7"
+   ],
+   "title": "Address typed on a phone in a train takes 56% of the journey's KLM time",
+   "detail": "Index 33.4 (mid/low), 41.8 (low/low); contributions: decisions 18.9, memory 12, fields 2.5. KLM 25.3 s of 45.2 s, 40 keystrokes at the phone rate (0.5 s). Low/low: fatigue F 119.0 with emotion −1, the model flags a likely exit point. Main persona: F 95.2 (109.1 before refinements, flagged then). Heuristics: H5 (no default), H6 (address recalled, not recognised), K2. Not in the index: one hand, moving train — P costs more, small targets are worse. Extraneous load: the bank already holds a registered address.",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Journey row 6",
+   "consequence": "The longest and most error-prone step comes after the urgent goal (blocking) is done; tired users may stop before ordering.",
+   "fix_hint": "Offer the registered address as the default with one tap to confirm; typing only for a new address.",
+   "confidence": "med",
+   "personas": [
+    "low/low",
+    "mid/low"
+   ],
+   "root_cause": "mobile-context",
+   "family": "load",
+   "useful_friction": false
+  },
+  {
+   "id": "LOAD-02",
+   "check": "C-s8",
+   "severity": "high",
+   "steps": [
+    "s8"
+   ],
+   "title": "Fee and 5–7 day delivery appear for the first time at the order confirmation",
+   "detail": "Index 27.9 (mid/low), 34.9 (low/low). Low/low: F 124.1 with emotion −1, likely exit point; main persona F 99.3, 0.7 below the low-patience threshold. Uncertainty 8 comes from new information at the moment of decision. Heuristics: H1, H6, K1. V3 (delivery date before confirmation) is met; the fee is not mentioned on any earlier step. Interpretation: the user evaluates a new cost after three form steps, with accumulated fatigue.",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Journey row 7",
+   "consequence": "The decision to pay is made at the point of highest fatigue; a user may cancel the order or confirm without reading the fee.",
+   "fix_hint": "Show fee and delivery time on the Order a new card button (s5) so s8 only confirms known values.",
+   "confidence": "med",
+   "vision": [
+    "V3"
+   ],
+   "vision_status": "covered",
+   "personas": [
+    "low/low"
+   ],
+   "root_cause": "hidden-without-explanation",
+   "family": "load",
+   "useful_friction": false
+  },
+  {
+   "id": "LOAD-03",
+   "check": "C-s4",
+   "severity": "high",
+   "steps": [
+    "s4",
+    "b1.s1"
+   ],
+   "title": "Blocking wait is unknown; on failure the model flags a 30 s silent wait as overload",
+   "detail": "s4: spinner, wait_s unknown, counted as 0. Branch b1 (computed after s1–s3): b1.s1 index 60.6 (mid/low), 75.7 (low/low, overload); contributions: wait 45 (30 s, no status, ×1.5 low patience), uncertainty 16; F 104.0 / 129.9; exit point by wait ≥ 10 s without status. The 30 s value was set during normalization, so the branch numbers are a hypothesis; the generic error is in the source. Heuristics: H1, H9.",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Errors section",
+   "consequence": "The user does not know whether the money is protected; with a generic error the card stays active and the next step is unclear.",
+   "fix_hint": "Show expected blocking time; on timeout say the card is not blocked yet and offer retry and a hotline.",
+   "confidence": "low",
+   "personas": [
+    "mid/low",
+    "low/low"
+   ],
+   "root_cause": "unknown-wait",
+   "family": "load",
+   "useful_friction": false
+  },
+  {
+   "id": "LOAD-04",
+   "check": "C-s2",
+   "severity": "medium",
+   "steps": [
+    "s1",
+    "s2"
+   ],
+   "title": "Reaching Block takes two screens and a choice among 9 card actions",
+   "detail": "s2 is the peak in every profile: 31.1 (high/high), 36.6 (mid), 45.8 (low/low); contributions: decisions 28.6 (2 decisions, 9 options by Hick–Hyman), uncertainty 8. KLM s1+s2 = 7.95 s. Shared peak, extraneous: the job (stop spending) is one action. Heuristics: H7 (no shortcut for an urgent task), H8. V1 expects one tap from the home screen.",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Journey row 2",
+   "consequence": "A stressed user searches a menu before the money is protected.",
+   "fix_hint": "Put a Lost or stolen card action on the home screen card tile.",
+   "confidence": "high",
+   "vision": [
+    "V1"
+   ],
+   "vision_status": "violated",
+   "root_cause": "no-emergency-path",
+   "family": "load",
+   "useful_friction": false
+  },
+  {
+   "id": "LOAD-05",
+   "check": "C-s3",
+   "severity": "medium",
+   "steps": [
+    "s3"
+   ],
+   "title": "Temporary vs permanent block offered without consequences",
+   "detail": "Index 35.9 (mid/low), 44.9 (low/low); contributions: uncertainty 16 (level 2), decisions 13.9, new term 6. Moment of truth. Heuristics: H2, H10, K1. Persona modifier: anxiety about money raises uncertainty further, not modelled. The confirmation protects against an irreversible action and stays; the load is in the wording, not in the step.",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Journey row 3",
+   "consequence": "A wrong choice (temporary) is likely; the map's failure note says a new card then cannot be ordered.",
+   "fix_hint": "Keep the choice; describe each option by outcome in user words and preselect permanent when the user starts from Lost or stolen.",
+   "confidence": "med",
+   "useful_friction": true,
+   "root_cause": "hidden-without-explanation",
+   "family": "load"
+  },
+  {
+   "id": "LOAD-06",
+   "check": "C-s5",
+   "severity": "medium",
+   "steps": [
+    "s5"
+   ],
+   "title": "Confirmation shows the internal status BLOCKED_PERM and the word reissue",
+   "detail": "Index 25.9 (mid/low), 32.4 (low/low); new terms 12 of the score (2 terms), decisions 13.9. Heuristics: H2, K1. This is the step that should end the anxiety (feeling +1).",
+   "evidence_class": "provided",
+   "evidence_ref": "journey-map.md, Journey row 4",
+   "consequence": "The user has to decode the status to know the money is safe.",
+   "fix_hint": "Replace with plain text: card blocked for good, nobody can pay with it; button Order a new card.",
+   "confidence": "high",
+   "root_cause": "internal-language",
+   "family": "load",
+   "useful_friction": false
+  },
+  {
+   "id": "LOAD-07",
+   "check": "C-s10",
+   "severity": "medium",
+   "steps": [
+    "s10"
+   ],
+   "title": "Journey ends with uncertainty 2: no way to pay today is shown",
+   "detail": "Index 32.0 (mid/low), 40.0 (low/low); uncertainty 16 is half of the score. Low/low: F 118.3, the model flags an exit point, which on the final step means leaving without a payment method, not abandoning the order. Heuristics: H1, K1. V2 (virtual card today) has no step.",
+   "evidence_class": "absent",
+   "consequence": "The JTBD part keep paying today stays open after the journey ends.",
+   "fix_hint": "End with a screen that shows a virtual card ready for the phone wallet.",
+   "confidence": "med",
+   "vision": [
+    "V2"
+   ],
+   "vision_status": "violated",
+   "root_cause": "value-failure",
+   "family": "load",
+   "useful_friction": false
+  }
+ ]
+}

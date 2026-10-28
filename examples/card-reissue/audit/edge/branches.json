@@ -1,0 +1,187 @@
+{
+ "branches": [
+  {
+   "id": "e1",
+   "from": "s4",
+   "title": "Blocking fails or times out",
+   "source": "edge",
+   "steps": [
+    {
+     "id": "e1.s1",
+     "actor": "system",
+     "action": "Provider does not confirm the block within 30 s",
+     "response": "Today: generic error (source, Errors). Proposed: 'Card is NOT blocked yet' in plain words",
+     "assumption": true,
+     "failure": "Card stays active",
+     "recovery": "unknown",
+     "status_feedback": false,
+     "load": {
+      "wait_s": 30,
+      "uncertainty": 2
+     }
+    },
+    {
+     "id": "e1.s2",
+     "actor": "user",
+     "action": "Taps Try again",
+     "response": "Today: unknown. Proposed: retry with a visible attempt counter",
+     "assumption": true
+    },
+    {
+     "id": "e1.s3",
+     "actor": "system",
+     "action": "Retries the block request",
+     "response": "Today: unknown. Proposed: spinner with expected time",
+     "assumption": true,
+     "status_feedback": true,
+     "load": {
+      "wait_s": "unknown",
+      "uncertainty": 1
+     }
+    },
+    {
+     "id": "e1.s4",
+     "actor": "user",
+     "action": "Opens the fallback route after a second failure",
+     "response": "Today: unknown. Proposed: 24/7 card-block phone line with one-tap call, works without the app",
+     "assumption": true
+    }
+   ]
+  },
+  {
+   "id": "e2",
+   "from": "s5",
+   "title": "Pay today before the new card arrives (V2)",
+   "source": "edge",
+   "steps": [
+    {
+     "id": "e2.s1",
+     "actor": "user",
+     "action": "Looks for a way to pay today after blocking",
+     "response": "Today: no such step in the map; s10 ends with 'still cannot pay'",
+     "assumption": true
+    },
+    {
+     "id": "e2.s2",
+     "actor": "user",
+     "action": "Opens the offer of a virtual card",
+     "response": "Today: unknown. Proposed: offer shown on the block confirmation (s5) and the order result",
+     "assumption": true
+    },
+    {
+     "id": "e2.s3",
+     "actor": "system",
+     "action": "Issues a virtual card",
+     "response": "Today: unknown",
+     "assumption": true,
+     "load": {
+      "wait_s": "unknown"
+     }
+    },
+    {
+     "id": "e2.s4",
+     "actor": "user",
+     "action": "Adds the virtual card to the phone wallet",
+     "response": "Today: unknown. Proposed: one button to the phone wallet; state the result",
+     "assumption": true
+    }
+   ]
+  },
+  {
+   "id": "e3",
+   "from": "s3",
+   "title": "Temporary block chosen, new card needed",
+   "source": "edge",
+   "steps": [
+    {
+     "id": "e3.s1",
+     "actor": "user",
+     "action": "Chooses Block temporarily",
+     "response": "Today: card temporarily blocked (s3 failure)",
+     "assumption": true,
+     "failure": "Cannot order a new card later",
+     "recovery": "unknown"
+    },
+    {
+     "id": "e3.s2",
+     "actor": "user",
+     "action": "Looks for Order a new card",
+     "response": "Today: unknown. s5 shows reissue only for BLOCKED_PERM",
+     "assumption": true
+    },
+    {
+     "id": "e3.s3",
+     "actor": "user",
+     "action": "Switches the temporary block to permanent",
+     "response": "Today: unknown. Proposed: offered on the card screen of a temporarily blocked card, followed by s6",
+     "assumption": true
+    }
+   ]
+  },
+  {
+   "id": "e4",
+   "from": "s1",
+   "title": "Relative acts for an elderly parent",
+   "source": "edge",
+   "steps": [
+    {
+     "id": "e4.s1",
+     "actor": "user",
+     "action": "Relative opens the parent's app on the parent's phone",
+     "response": "Today: unknown. Map has a single self-serving persona",
+     "assumption": true
+    },
+    {
+     "id": "e4.s2",
+     "actor": "user",
+     "action": "Blocks the card permanently",
+     "response": "Today: same as s2–s5; no statement on who may do it",
+     "assumption": true
+    },
+    {
+     "id": "e4.s3",
+     "actor": "user",
+     "action": "Enters the parent's new address in the form",
+     "response": "Today: field with suggestions (s7); whether it is prefilled is unknown",
+     "assumption": true
+    },
+    {
+     "id": "e4.s4",
+     "actor": "user",
+     "action": "Checks the delivery address before confirming",
+     "response": "Today: summary (s8) lists fee and delivery term only. Proposed: address shown with Edit",
+     "assumption": true
+    }
+   ]
+  },
+  {
+   "id": "e5",
+   "from": "s5",
+   "title": "Interrupted between blocking and ordering",
+   "source": "edge",
+   "steps": [
+    {
+     "id": "e5.s1",
+     "actor": "user",
+     "action": "Closes the app after the block confirmation (train stop)",
+     "response": "Today: unknown whether anything reminds the user",
+     "assumption": true
+    },
+    {
+     "id": "e5.s2",
+     "actor": "user",
+     "action": "Opens the app hours later",
+     "response": "Today: unknown. s10 shows a home screen without a card tile",
+     "assumption": true
+    },
+    {
+     "id": "e5.s3",
+     "actor": "user",
+     "action": "Looks for where to order the new card",
+     "response": "Today: unknown. Proposed: banner 'Card blocked. Order a new one' on the home screen until ordered",
+     "assumption": true
+    }
+   ]
+  }
+ ]
+}

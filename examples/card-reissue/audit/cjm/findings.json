@@ -1,0 +1,323 @@
+{
+ "family": "cjm",
+ "journey": "journey.json",
+ "mode": "full",
+ "methods": [
+  "L01–L20",
+  "health-review",
+  "emotion-curve",
+  "service-layers",
+  "vision-diff"
+ ],
+ "not_checked": [
+  "L16 — no screenshots, code or analytics of the live app",
+  "Emotions and moments of truth — no research, all emotions assumed"
+ ],
+ "summary": "17 findings: 3 critical, 6 high, 7 medium, 1 low. The journey blocks the card but has no stage for 'keep paying today' and ends with no card for 5–7 days. V1 violated, V2 not mentioned, V3 at risk. Blocking failure ends in a generic error with the card still active.",
+ "report_md": "# CJM logic · Reissue a lost debit card\n\nMode: full. Methods: script checks L01–L20, mature-map review (method 4), emotion curve, service layers, vision coverage. Source: AI draft `journey-map.md`, no other evidence.\n\n## Summary\n\n17 findings: **3 critical · 6 high · 7 medium · 1 low**.\n\nThe map does half of the job. It blocks the card, but the second half of the JTBD (\"keep paying for things today\") has no stage. The journey ends on a home screen without any card, 5–7 days before the new one arrives. Two of three owner vision items are broken by content, though the script marks them covered by step links.\n\n## Findings\n\n| ID | Sev | Check | Steps | Finding |\n|---|---|---|---|---|\n| CJM-01 | critical | H1 | s10 | Stated job \"keep paying today\" has no stage; journey ends with no card |\n| CJM-02 | critical | V1 | s1–s3 | \"One tap from home\" vs 3+ taps, 9-action screen, choice dialog |\n| CJM-07 | critical | L05 | b1.s1 | Blocking failure: generic error, card stays active, no way out |\n| CJM-03 | high | V2 | — | Virtual card for paying today is in no step |\n| CJM-04 | high | V3 | s8 | Delivery as \"5–7 days\", only in the summary at confirmation |\n| CJM-05 | high | H1 | s6, s8 | Fee first appears in the order summary |\n| CJM-06 | high | L05 | s3 | Wrong block type stops the reissue; recovery unknown |\n| CJM-10 | high | L13 | s9 | Issuer rejection / missing push not described |\n| CJM-12 | high | L10 | s3, s8 | Moments of truth assumed; 73 % of steps assumed |\n| CJM-08 | medium | L14 | s4 | Block wait duration unknown |\n| CJM-09 | medium | L19 | s5 | BLOCKED_PERM shown to the user |\n| CJM-11 | medium | L04 | s2 | Two actions merged in one step |\n| CJM-13 | medium | H1 | s7 | \"On the move\" vs typing a full address |\n| CJM-14 | medium | L18 | s6 | Card design and name on card asked on reissue |\n| CJM-15 | medium | L15 | s10 | Wait, delivery, activation, return visit not on the map |\n| CJM-16 | medium | L07 | s5 | No check of spending between loss and block |\n| CJM-17 | low | NORM | s3, b1.s1 | Some journey.json facts are not in the map |\n\n### Severity changes vs the script\n\n- L05 s3: medium → high (moment of truth, failure stops the main job).\n- L05/L14 b1.s1: high → critical, merged into CJM-07 (card stays spendable).\n- L13 s4: dropped, its failure is branch b1.\n- L11 folded into CJM-12; L12 folded into CJM-01.\n- Vision: V1 covered → violated, V3 covered → at-risk (script reads step links only).\n\n## Mature-map review\n\n**Contradictions inside the document**\n\n1. \"Keep paying for things today\" (Who and why, JTBD, success) vs row 8 \"Home screen without a card tile\" → CJM-01.\n2. V1 \"one tap\" vs rows 2–3 → CJM-02.\n3. \"Usually on the phone, often on the move\" vs row 6 \"Types the delivery address\" → CJM-13.\n\n**Map vs live product:** not possible, no screenshots, code or analytics (L16 not checked).\n\n**Moments of truth**\n\n| Step | Decision | Evidence | Failure / way out |\n|---|---|---|---|\n| s3 | Which block type | none | Temporary → no reissue; recovery unknown |\n| s8 | Accept fee and a week without a card | none | Not described |\n\n**Failures without a way out:** s3 (unknown), b1.s1 (none), s9 (not described).\n\n**Skew:** the map is detailed on the happy-path screens. It is silent on errors (one line for the whole journey), on the time after the order, and on fraud checks.\n\n## Emotion curve\n\n`cjm/emotion-curve.svg`. All emotions were set during normalization (assumption), not taken from the source.\n\n| Step | Emotion | Cause | Dip type |\n|---|---|---|---|\n| s1 | −1 | Wallet is gone | Trigger (outside product) |\n| s2 | −1 | Searching for the block action | Product / UX |\n| s3 | −1 | Unclear which block type | Product / UX |\n| s5 | +1 | Money is safe | — (peak) |\n| s6 | 0 | Expected one tap, got a form | Product / UX |\n| s7 | −1 | Typing an address in a train | Product / UX |\n| s8 | −1 | A week without a card, unannounced fee | Value + Product / UX |\n| s10 | −1 | Cannot pay for lunch today | **Value** |\n\n- EC2: dips present, no happy monotony.\n- EC4/L12: the success ending sits at −1, which contradicts the claimed success.\n- Value failures (s8, s10) need a business decision (instant virtual card, fee policy), not a screen change. See CJM-01 and CJM-03.\n- **Keep:** the relief at s5 (\"money is safe\"), the only point above zero. TO BE must keep the block confirmation clear and early.\n\n## Service layers (seams only)\n\n| Step | Frontstage | Backstage | Issue |\n|---|---|---|---|\n| s4 | Spinner | Processing provider blocks the card | No duration (SL2) |\n| b1.s1 | Generic error | Provider timeout | User cannot tell the card is still active (SL2, SL6) |\n| s5 | BLOCKED_PERM | Card status | Backstage code in frontstage (SL1) |\n| s9 | Push | Issuer accepts order | No failure, no in-app status (SL3) |\n\n## Vision coverage\n\n| Item | Script | After review | Finding |\n|---|---|---|---|\n| V1 one-tap blocking | covered | **violated** | CJM-02 |\n| V2 pay today, virtual card | not mentioned | not mentioned | CJM-03, CJM-01 |\n| V3 date before confirm | covered | at-risk | CJM-04 |\n\nAdded by the AI without being asked: card design and name on card in the reissue form (CJM-14); the temporary/permanent choice on blocking (CJM-06). Each one adds a decision. The owner decides whether to keep them.\n\n## Hand over to other families\n\n- edge: temporary block later turned into permanent; card found after a permanent block; relative acting for an elderly parent; no network in a tunnel during s4; old card still in a phone wallet / subscriptions.\n- edge: second visit, so where the user sees the order after the card tile disappears.\n- load: s2 has 9 options; s7 has about 40 keystrokes in a moving train; s6 has 8 options across 3 fields.\n- load: the first-time app user and the large-font persona at s2–s3.\n\n## Not checked\n\n- L16: map vs live product. No screenshots, code or analytics.\n- Real emotions and moments of truth: no research data.\n- Generic error text and block duration: unknown in the source.\n\n## Method notes\n\n- New `root_cause` label `unrequested-scope` (CJM-14): none of the listed labels covers \"fields the AI added beyond the job\". `implementation-in-map` is about design or tech details, not about extra user decisions.\n- The `vision` script's \"covered\" status is easy to misread as a result. Two of three items changed on review.\n",
+ "findings": [
+  {
+   "id": "CJM-01",
+   "family": "cjm",
+   "check": "H1",
+   "severity": "critical",
+   "steps": [
+    "s10"
+   ],
+   "title": "Stated job 'keep paying today' has no stage; journey ends with no card at all",
+   "detail": "'Who and why' says the user wants 'to keep paying for things today'; the success criterion adds 'knows how to pay until it arrives'. No stage delivers either: row 8 ends on 'Home screen without a card tile', and the next card arrives in 5–7 days (row 7). Also covers L07 (journey ends without the job done) and L12 (success claimed, final emotion −1).",
+   "evidence_class": "provided",
+   "consequence": "The user leaves with the old card blocked and no way to pay for 5–7 days; half of the JTBD fails.",
+   "fix_hint": "Add a stage after blocking that gives a way to pay today (see V2) and states it in the final screen.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, 'Who and why' vs Journey rows 7–8",
+   "root_cause": "goal-contradiction",
+   "vision": [
+    "V2"
+   ],
+   "vision_status": "violated"
+  },
+  {
+   "id": "CJM-02",
+   "family": "cjm",
+   "check": "V1",
+   "severity": "critical",
+   "steps": [
+    "s1",
+    "s2",
+    "s3"
+   ],
+   "title": "V1 'one tap from home' vs 3+ taps, a 9-action screen and a choice dialog",
+   "detail": "V1: 'Blocking takes one tap from the home screen'. The map: tap the card tile, open card settings, pick 'Block card' among 9 actions (row 2), then answer 'temporarily or permanently?' (row 3). The vision script marks V1 'covered' because s2/s3 are linked; by content it is violated. Severity set to critical: the item concerns how fast spending is stopped.",
+   "evidence_class": "provided",
+   "consequence": "Every extra screen delays the block while the lost card can still be used.",
+   "fix_hint": "A block action reachable from the home screen in one tap; the type question removed or defaulted.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Owner's vision V1 vs Journey rows 2–3",
+   "root_cause": "goal-contradiction",
+   "vision": [
+    "V1"
+   ],
+   "vision_status": "violated"
+  },
+  {
+   "id": "CJM-03",
+   "family": "cjm",
+   "check": "V2",
+   "severity": "high",
+   "steps": [],
+   "title": "V2 'pay today with a virtual card' is not touched by any step",
+   "detail": "No step issues, shows or mentions a virtual card. Whether the bank can issue one instantly is not in the input. The goal contradiction this creates is CJM-01.",
+   "evidence_class": "absent",
+   "consequence": "The owner's answer to 'pay today' is missing from the map, so the dip at s10 has no planned fix.",
+   "fix_hint": "Decide whether an instant virtual card exists; if yes, add it right after s5.",
+   "confidence": "high",
+   "root_cause": "value-failure",
+   "vision": [
+    "V2"
+   ],
+   "vision_status": "not-mentioned"
+  },
+  {
+   "id": "CJM-04",
+   "family": "cjm",
+   "check": "V3",
+   "severity": "high",
+   "steps": [
+    "s8"
+   ],
+   "title": "Delivery shown as '5–7 days' and only in the summary at confirmation",
+   "detail": "V3: 'Delivery date is shown before the user confirms'. Row 7 pairs 'Confirms the order' with 'Summary with fee and delivery in 5–7 days' — a range, not a date, and the map does not say whether the summary appears before or after the tap. Script marked V3 'covered' by step link; by content it is at risk.",
+   "evidence_class": "provided",
+   "consequence": "The user commits to a week without a card before seeing when it ends.",
+   "fix_hint": "Show a concrete date on the form (s6) and on the summary before the confirm button.",
+   "confidence": "med",
+   "evidence_ref": "journey-map.md, Journey row 7",
+   "root_cause": "hidden-without-explanation",
+   "vision": [
+    "V3"
+   ],
+   "vision_status": "at-risk"
+  },
+  {
+   "id": "CJM-05",
+   "family": "cjm",
+   "check": "H1",
+   "severity": "high",
+   "steps": [
+    "s6",
+    "s8"
+   ],
+   "title": "Reissue fee first appears in the order summary",
+   "detail": "The form at row 5 lists 'delivery address, card design, name on card'; no fee. The fee is first named in the summary at row 7 'Confirms the order'.",
+   "evidence_class": "provided",
+   "consequence": "A money surprise on a moment of truth; the user either pays unexpectedly or abandons the reissue.",
+   "fix_hint": "Name the fee (or 'free') at the entry to reissue, before the form.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Journey rows 5 and 7",
+   "root_cause": "hidden-without-explanation"
+  },
+  {
+   "id": "CJM-06",
+   "family": "cjm",
+   "check": "L05",
+   "severity": "high",
+   "steps": [
+    "s3"
+   ],
+   "title": "Temporary vs permanent block: wrong choice blocks the reissue, recovery unknown",
+   "detail": "Row 3 asks 'block temporarily or permanently?' with no explanation of consequences. journey.json s3 records the failure 'Chooses temporary block, cannot order a new card later', recovery 'unknown'. Script gave medium (unknown recovery); raised to high because s3 is a moment of truth and the failure stops the main job. Also L10: no evidence for this moment of truth. interpretation: for a lost card the question itself is unneeded.",
+   "evidence_class": "provided",
+   "consequence": "A user who picks 'temporary' ends the journey without a reissue and does not know why.",
+   "fix_hint": "Explain the outcome of each option, or default to permanent for 'lost'; allow temporary → permanent later.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Journey row 3; journey.json s3",
+   "root_cause": "dead-end-failure"
+  },
+  {
+   "id": "CJM-07",
+   "family": "cjm",
+   "check": "L05",
+   "severity": "critical",
+   "steps": [
+    "b1.s1"
+   ],
+   "title": "Blocking failure ends in a generic error; card stays active, no way out",
+   "detail": "Errors section: 'If blocking fails, the app shows a generic error.' Nothing about retry, another channel or a phone line. journey.json adds a 30 s timeout without status (normalization, not in the map). Script gave high (L05) and high ×2 (L14); raised to critical: the card stays spendable, which is the first half of the JTBD.",
+   "evidence_class": "provided",
+   "consequence": "The user cannot tell whether the card is blocked and has no next action while money is at risk.",
+   "fix_hint": "State that the card is NOT blocked, offer retry and an emergency channel (hotline) on the same screen.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Errors section",
+   "root_cause": "dead-end-failure"
+  },
+  {
+   "id": "CJM-08",
+   "family": "cjm",
+   "check": "L14",
+   "severity": "medium",
+   "steps": [
+    "s4"
+   ],
+   "title": "Blocking wait has a spinner but no known duration",
+   "detail": "Row 3 response: 'Spinner while the provider blocks the card'. Duration is not in the map (wait_s 'unknown'). The script's L13 for s4 is dropped: its failure is described as branch b1 (CJM-07).",
+   "evidence_class": "provided",
+   "consequence": "On a train with patchy coverage the user cannot tell a slow block from a stuck one.",
+   "fix_hint": "Measure the provider's block time; above 10 s add progress text and a fallback.",
+   "confidence": "med",
+   "evidence_ref": "journey-map.md, Journey row 3",
+   "root_cause": "unknown-wait"
+  },
+  {
+   "id": "CJM-09",
+   "family": "cjm",
+   "check": "L19",
+   "severity": "medium",
+   "steps": [
+    "s5"
+   ],
+   "title": "Confirmation shows the internal status code BLOCKED_PERM",
+   "detail": "Row 4 'Sees': 'Card status BLOCKED_PERM, reissue available'. SL1: a backstage status in frontstage.",
+   "evidence_class": "provided",
+   "consequence": "The confirmation of the key result is written in a code, not in words the user reads at a glance.",
+   "fix_hint": "Plain-language confirmation: what is blocked, since when, what can be done next.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Journey row 4",
+   "root_cause": "internal-language"
+  },
+  {
+   "id": "CJM-10",
+   "family": "cjm",
+   "check": "L13",
+   "severity": "high",
+   "steps": [
+    "s9"
+   ],
+   "title": "Issuer acceptance (s9) has no described failure",
+   "detail": "Row 7 response: 'Push notification from the issuer'. The map does not say what happens if the issuer rejects the order, the push does not arrive, or notifications are off.",
+   "evidence_class": "absent",
+   "consequence": "A failed order may stay unnoticed for the whole 5–7 days the user waits.",
+   "fix_hint": "Describe the rejection path and an in-app order status independent of push.",
+   "confidence": "high",
+   "root_cause": "external-system-failure"
+  },
+  {
+   "id": "CJM-11",
+   "family": "cjm",
+   "check": "L04",
+   "severity": "medium",
+   "steps": [
+    "s2"
+   ],
+   "title": "Step s2 merges two actions: open the card, open settings",
+   "detail": "Row 2: 'Taps the card tile, opens card settings'. Kept merged on purpose during normalization (frame.md item 1). The wait and error between the two screens are not visible.",
+   "evidence_class": "provided",
+   "consequence": "The tap count behind V1 is hidden; see CJM-02.",
+   "fix_hint": "Split into two steps when the map is revised.",
+   "confidence": "high",
+   "evidence_ref": "journey-map.md, Journey row 2",
+   "root_cause": "merged-steps"
+  },
+  {
+   "id": "CJM-12",
+   "family": "cjm",
+   "check": "L10",
+   "severity": "high",
+   "steps": [
+    "s3",
+    "s8"
+   ],
+   "title": "Both moments of truth rest on assumptions; 73 % of steps are assumed",
+   "detail": "No evidence besides the map (frame.md). Emotions of all user steps were set during normalization; 8 of 11 steps are assumption: true (L11, above the 70 % threshold). s3 and s8 have no interview or analytics backing.",
+   "evidence_class": "absent",
+   "consequence": "The whole map is a hypothesis; priorities built on its emotions may be wrong.",
+   "fix_hint": "Validate s3 (block type) and s8 (summary) with 5–6 users who lost a card.",
+   "confidence": "high",
+   "root_cause": "no-evidence"
+  },
+  {
+   "id": "CJM-13",
+   "family": "cjm",
+   "check": "H1",
+   "severity": "medium",
+   "steps": [
+    "s7"
+   ],
+   "title": "Context 'often on the move' vs typing a full address in the train",
+   "detail": "'Who and why': 'Usually on the phone, often on the move.' Row 6: 'Types the delivery address'. The map does not say whether the bank already holds an address. Detailed load cost goes to the load family.",
+   "evidence_class": "provided",
+   "consequence": "The longest input of the journey falls in the worst context.",
+   "fix_hint": "Offer the address on file as the default; typing only to change it.",
+   "confidence": "med",
+   "evidence_ref": "journey-map.md, 'Who and why' vs Journey row 6",
+   "root_cause": "mobile-context"
+  },
+  {
+   "id": "CJM-14",
+   "family": "cjm",
+   "check": "L18",
+   "severity": "medium",
+   "steps": [
+    "s6"
+   ],
+   "title": "Reissue form asks for card design and name on card",
+   "detail": "Row 5: 'Form: delivery address, card design, name on card'. Neither field follows from the JTBD or the vision; both add decisions on a replacement of an existing card.",
+   "evidence_class": "provided",
+   "consequence": "Two extra decisions between the user and the order (s6 feeling 0: 'Expected a single tap').",
+   "fix_hint": "Owner decides: keep as optional, prefilled from the old card.",
+   "confidence": "med",
+   "evidence_ref": "journey-map.md, Journey row 5",
+   "root_cause": "unrequested-scope"
+  },
+  {
+   "id": "CJM-15",
+   "family": "cjm",
+   "check": "L15",
+   "severity": "medium",
+   "steps": [
+    "s10"
+   ],
+   "title": "Journey stops at 'closes the app'; wait, delivery, activation, return visit absent",
+   "detail": "Row 8 ends the map. Not on the map: 5–7 days of waiting, tracking the order, receiving and activating the card, re-linking subscriptions. Row 8 shows 'Home screen without a card tile', so the return entry point is unclear.",
+   "evidence_class": "absent",
+   "consequence": "The offline part, where the deepest dips usually are, is not designed; the user has no visible place to check status.",
+   "fix_hint": "Extend the map to card activation; show the order on the home screen.",
+   "confidence": "high",
+   "root_cause": "no-return-path"
+  },
+  {
+   "id": "CJM-16",
+   "family": "cjm",
+   "check": "L07",
+   "severity": "medium",
+   "steps": [
+    "s5"
+   ],
+   "title": "No step checks spending between loss and block",
+   "detail": "JTBD: 'Make sure nobody can spend my money'. The journey blocks future spending but no step shows recent transactions or a dispute path for ones made after the loss. interpretation: the user has no way to verify the job is done.",
+   "evidence_class": "interpretation",
+   "consequence": "A user with fraudulent charges finishes the journey believing the money is safe.",
+   "fix_hint": "After the block, show transactions since a chosen time with a 'not me' action.",
+   "confidence": "med",
+   "root_cause": "goal-contradiction"
+  },
+  {
+   "id": "CJM-17",
+   "family": "cjm",
+   "check": "NORM",
+   "severity": "low",
+   "steps": [
+    "s3",
+    "b1.s1"
+   ],
+   "title": "Some journey.json facts are not traceable to the map",
+   "detail": "s3 failure ('cannot order a new card later') and b1.s1 wait_s 30 / status_feedback false are cited to the map but are not in it, and frame.md 'Invented during normalization' does not list them.",
+   "evidence_class": "provided",
+   "consequence": "Findings CJM-06 and CJM-07 partly rest on normalization choices.",
+   "fix_hint": "Add both to the 'Invented' list in frame.md.",
+   "confidence": "high",
+   "evidence_ref": "journey.json s3, b1.s1; frame.md 'Invented during normalization'",
+   "root_cause": "no-evidence"
+  }
+ ]
+}

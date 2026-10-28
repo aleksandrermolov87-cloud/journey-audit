@@ -1,0 +1,23 @@
+[
+ {
+  "step": "s6",
+  "field": "max_options",
+  "from": 8,
+  "to": 3,
+  "why": "Source lists three form parts (address, card design, name on card); the number of card designs is not given, so the widest visible choice is 3. Design count not assessed."
+ },
+ {
+  "step": "s7",
+  "field": "fields",
+  "from": 2,
+  "to": 1,
+  "why": "Source shows one 'Address field with suggestions'; a second field is not in the map."
+ },
+ {
+  "step": "s7",
+  "field": "context_switches",
+  "from": 1,
+  "to": 0,
+  "why": "Source does not say the address is looked up in another app or document; the train context is a mobile modifier, described in text, not counted as a switch."
+ }
+]

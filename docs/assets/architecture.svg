@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">journey-audit architecture</title>
+  <desc id="d">An orchestrator normalizes the journey, three auditor agents run in parallel (CJM logic, edge cases, cognitive load), and a verdict agent turns their findings into priorities, goals and specs.</desc>
+  <style>
+    .bg{fill:#ffffff}
+    .card{fill:#f6f7f9;stroke:#d9dce3}
+    .orc{fill:#eef0ff;stroke:#5b4bd6}
+    .cjm{fill:#eaf6ff;stroke:#1f7ae0}
+    .edge{fill:#fff4e6;stroke:#e08a1f}
+    .load{fill:#fdeef0;stroke:#d6455b}
+    .ver{fill:#e9f8ef;stroke:#1f9d55}
+    .h{fill:#14161a;font-weight:700;font-size:15px}
+    .s{fill:#3b4048;font-size:12px}
+    .xs{fill:#5e6570;font-size:11px}
+    .chip{fill:#ffffff;stroke:#d9dce3}
+    .arrow{stroke:#7a808a;stroke-width:1.6;fill:none;marker-end:url(#a)}
+    .lbl{fill:#5e6570;font-size:11px;font-style:italic}
+    @media (prefers-color-scheme:dark){
+      .bg{fill:#0d1117}.card{fill:#161b22;stroke:#30363d}
+      .orc{fill:#1d1a3a;stroke:#8b7cf6}.cjm{fill:#0f2236;stroke:#4c9cf0}.edge{fill:#2b1d0b;stroke:#f0a64c}
+      .load{fill:#2e1218;stroke:#f06a7f}.ver{fill:#0e2a1a;stroke:#3fca7a}
+      .h{fill:#e6edf3}.s{fill:#c9d1d9}.xs,.lbl{fill:#8b949e}.chip{fill:#0d1117;stroke:#30363d}.arrow{stroke:#8b949e}
+    }
+  </style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7a808a"/></marker></defs>
+  <rect class="bg" width="1000" height="560" rx="16"/>
+
+  <!-- input -->
+  <rect class="card" x="24" y="200" width="150" height="150" rx="12"/>
+  <text class="h" x="40" y="228">Input</text>
+  <text class="s" x="40" y="252">CJM table / doc</text>
+  <text class="s" x="40" y="272">user flow</text>
+  <text class="s" x="40" y="292">prototype URL</text>
+  <text class="s" x="40" y="312">screens, code</text>
+  <text class="s" x="40" y="332">owner's vision</text>
+
+  <!-- orchestrator -->
+  <rect class="orc" x="206" y="170" width="190" height="210" rx="12" stroke-width="1.6"/>
+  <text class="h" x="222" y="198">journey-audit</text>
+  <text class="xs" x="222" y="216">orchestrator</text>
+  <rect class="chip" x="222" y="230" width="158" height="26" rx="6"/><text class="s" x="232" y="248">0 · frame + version</text>
+  <rect class="chip" x="222" y="262" width="158" height="26" rx="6"/><text class="s" x="232" y="280">1 · normalize → JSON</text>
+  <rect class="chip" x="222" y="294" width="158" height="26" rx="6"/><text class="s" x="232" y="312">2 · launch auditors</text>
+  <rect class="chip" x="222" y="326" width="158" height="26" rx="6"/><text class="s" x="232" y="344">3–4 · verdict, report</text>
+
+  <!-- auditors -->
+  <rect class="cjm" x="440" y="40" width="250" height="140" rx="12" stroke-width="1.6"/>
+  <text class="h" x="456" y="68">CJM logic</text>
+  <text class="xs" x="456" y="86">journey-cjm-auditor</text>
+  <text class="s" x="456" y="110">checks L01–L20</text>
+  <text class="s" x="456" y="128">emotion curve · blueprint layers</text>
+  <text class="s" x="456" y="146">goal ↔ step contradictions</text>
+  <text class="s" x="456" y="164">map ↔ live product drift · vision</text>
+
+  <rect class="edge" x="440" y="205" width="250" height="140" rx="12" stroke-width="1.6"/>
+  <text class="h" x="456" y="233">Edge cases</text>
+  <text class="xs" x="456" y="251">journey-edge-auditor</text>
+  <text class="s" x="456" y="275">14 axes E01–E14</text>
+  <text class="s" x="456" y="293">flow checklists</text>
+  <text class="s" x="456" y="311">synthetic personas (2-stage)</text>
+  <text class="s" x="456" y="329">alternative + adjacent journeys</text>
+
+  <rect class="load" x="440" y="370" width="250" height="140" rx="12" stroke-width="1.6"/>
+  <text class="h" x="456" y="398">Cognitive load</text>
+  <text class="xs" x="456" y="416">journey-load-auditor</text>
+  <text class="s" x="456" y="440">load index 0–100 · KLM time</text>
+  <text class="s" x="456" y="458">fatigue · exit points</text>
+  <text class="s" x="456" y="476">3 persona profiles</text>
+  <text class="s" x="456" y="494">Nielsen / Krug heuristics</text>
+
+  <!-- verdict -->
+  <rect class="ver" x="734" y="170" width="240" height="210" rx="12" stroke-width="1.6"/>
+  <text class="h" x="750" y="198">Verdict</text>
+  <text class="xs" x="750" y="216">journey-verdict</text>
+  <rect class="chip" x="750" y="230" width="208" height="26" rx="6"/><text class="s" x="760" y="248">merge + resolve conflicts</text>
+  <rect class="chip" x="750" y="262" width="208" height="26" rx="6"/><text class="s" x="760" y="280">verdict · P0 / P1 / P2</text>
+  <rect class="chip" x="750" y="294" width="208" height="26" rx="6"/><text class="s" x="760" y="312">goals with metrics</text>
+  <rect class="chip" x="750" y="326" width="208" height="26" rx="6"/><text class="s" x="760" y="344">specs · TO BE · test plan</text>
+
+  <!-- arrows -->
+  <path class="arrow" d="M174,275 L204,275"/>
+  <path class="arrow" d="M396,240 C420,240 418,110 438,110"/>
+  <path class="arrow" d="M396,275 L438,275"/>
+  <path class="arrow" d="M396,310 C420,310 418,440 438,440"/>
+  <path class="arrow" d="M690,110 C712,110 712,240 732,240"/>
+  <path class="arrow" d="M690,275 L732,275"/>
+  <path class="arrow" d="M690,440 C712,440 712,310 732,310"/>
+
+  <text class="lbl" x="222" y="402">journey.json →</text>
+  <text class="lbl" x="750" y="402">← findings.json ×3</text>
+  <text class="lbl" x="456" y="536">run in parallel · independent context · one shared findings contract</text>
+</svg>

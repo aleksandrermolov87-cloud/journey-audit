@@ -1,0 +1,292 @@
+{
+ "family": "edge",
+ "journey": "journey.json",
+ "mode": "full",
+ "methods": [
+  "E01–E14",
+  "flow-checklists",
+  "synthetic-personas",
+  "alternative-paths",
+  "adjacent-journeys"
+ ],
+ "not_checked": [
+  "Live UI, screens, code, analytics: not provided",
+  "E10 screen reader and keyboard",
+  "E01 entry from push or website"
+ ],
+ "summary": "13 findings: 2 critical, 4 high, 6 medium, 1 low. 5 branches expanded (e1–e5). All 3 personas ended partial; none can pay before the new card arrives (V2 violated). Failed blocking ends in a generic error with the card active.",
+ "report_md": "# Edge cases · Reissue a lost debit card\n\nMode: full. Methods: axes E01–E14 per stage, flow checklists (waiting, form input, confirmation, payments, roles, exit), 3 synthetic personas in description mode, 5 alternative branches, adjacent journeys. Evidence: the AI map only; no screens, analytics or code.\n\n**Findings: 2 critical · 4 high · 6 medium · 1 low.**\n\n## Findings\n\n| ID | Sev | Axis | Steps | Finding | F×I | Evidence |\n|---|---|---|---|---|---|---|\n| EDGE-01 | critical | E07 | s4, b1.s1, e1.s1 | Blocking failure ends in a generic error; the card stays active | 1×3 | provided |\n| EDGE-02 | critical | E12 | s8, s10, e2.s1 | No way to pay before the new card arrives in 5–7 days | 3×3 | provided |\n| EDGE-03 | high | P | s3, e3.s1 | 2 of 3 personas could not tell temporary from permanent block; one chose temporary | 2×3 | synthetic |\n| EDGE-04 | high | E02 | s5, s10, e5.s3 | After blocking, the home screen loses the card tile; re-entry to reissue is not described | 2×2 | provided |\n| EDGE-05 | high | E06 | s1, s6, s7, e4.s1 | No path for a relative acting on behalf of the cardholder | 2×3 | absent |\n| EDGE-06 | high | P-p3 | s8, e4.s4 | The order summary does not show the delivery address | 2×3 | synthetic |\n| EDGE-07 | medium | E09 | s7, s4, s8 | Poor network in transit is not covered at the two waits | 3×2 | absent |\n| EDGE-08 | medium | E05 | s8 | Repeat tap on confirm during the wait may order two cards and charge two fees | 1×2 | hypothesis |\n| EDGE-09 | medium | E14 | s5, s8 | No undo after permanent block or order; wallet found later is not covered | 2×2 | provided |\n| EDGE-10 | medium | E11 | journey | Transactions already made with the stolen card have no route | 2×3 | absent |\n| EDGE-11 | medium | E09 | journey | Phone lost together with the wallet: the app journey is unavailable | 2×3 | absent |\n| EDGE-12 | low | E04 | s2 | Several cards on the account: which tile to block is not described | 1×3 | hypothesis |\n| EDGE-13 | medium | P-p1 | s8 | Fee amount is not stated in the map's summary | 3×1 | synthetic |\n\nMain finding: the journey secures the money but not the second half of the JTBD. All three personas finished `partial`; none could pay before the new card arrives (EDGE-02), and a failed block ends in a generic error with the card still active (EDGE-01).\n\n## Scenario table (axes)\n\n| Scenario | Axis | Stage | F | I | Coverage | Priority |\n|---|---|---|---|---|---|---|\n| Pay today before the card arrives | E12 | Done | 3 | 3 | none | 11 |\n| Relative acts for a parent | E06 | All | 2 | 3 | none | 8 |\n| Stolen card, charges already made | E11 | after Done | 2 | 3 | none | 8 |\n| Phone lost with the wallet | E09 | before Notice | 2 | 3 | none | 8 |\n| Address wrong or outdated, not on summary | E04 | Reissue | 2 | 3 | none | 8 |\n| Network loss at s4 / s7 / s8 | E09 | Block, Reissue | 3 | 2 | none | 8 |\n| Temporary block chosen, new card needed | E04 | Block | 2 | 3 | partial | 6 |\n| Interrupted between block and order | E02 | Block → Reissue | 2 | 2 | none | 6 |\n| Wallet found after permanent block | E14 | Reissue | 2 | 2 | partial | 4 |\n| Blocking fails | E07 | Block | 1 | 3 | partial | 3 |\n| Double tap on confirm | E05 | Reissue | 1 | 2 | none | 4 |\n| Several cards on the account | E04 | Block | 1 | 3 | none | 5 |\n\nNot applicable: E01 (entry from a push or the bank's site is possible but not in scope of the map), E03 (repeat use is rare for this journey), E08 (weekend delivery only adds to the 5–7 days already found), E10 (covered by p2 with large font; screen reader not checked).\n\nExpanded instead of strict top 5: stolen-card charges and phone-lost-too go to adjacent journeys (they start outside this map); network loss is cross-cutting, not a branch. Blocking failure (priority 3) is expanded for its impact on money.\n\n## Alternative branches (`edge/branches.json`)\n\n| Branch | From | Title | Steps | Today |\n|---|---|---|---|---|\n| e1 | s4 | Blocking fails or times out | 4 | generic error, then unknown |\n| e2 | s5 | Pay today before the new card arrives (V2) | 4 | absent |\n| e3 | s3 | Temporary block chosen, new card needed | 3 | unknown after the choice |\n| e4 | s1 | Relative acts for an elderly parent | 4 | unknown |\n| e5 | s5 | Interrupted between blocking and ordering | 3 | unknown |\n\nProposed behaviour in the branches is marked \"Proposed\"; no screens were invented.\n\n## Synthetic personas\n\nDescription mode, two stages: home screen without a task, then the mission with 9 screens under shuffled labels.\n\n| Persona | Outcome | Exit | Main friction | Quote |\n|---|---|---|---|---|\n| p1 Dan, 29, first time in the app | partial | s8 | No way to pay today; fee amount unknown | \"So what do I pay for lunch today?\" |\n| p2 Valentina, 66, large font, low literacy | partial | s3 | Chose temporary: permanent reads as irreversible | \"Which one is the permanent one?\" |\n| p3 Marina, 41, acting for her father | partial | — | Address not on the summary; unsure she may act | \"Is it even mine to do this?\" |\n\n- Shared friction (2+): block dialog without consequences (p1, p2); generic spinner error (all 3); 'BLOCKED_PERM' / 'reissue' unclear (p1, p2).\n- Personas found 2 findings not covered by the checklists: EDGE-06 (address missing from summary), EDGE-13 (fee amount unknown).\n- Hint check: missions avoid the words block, reissue, virtual. The dialog's own labels were shown, so unanimity at s3 is weighted lower.\n- Check with people: p2's choice at s3 with 5 low-literacy users; p3's address check with users who moved in the last year.\n\n## Adjacent journeys (ranked)\n\n1. Dispute charges made with a stolen card: frequent after theft, money at stake, no entry in the map.\n2. Block a card without the app (phone lost too, or no smartphone): the emergency route the map assumes away.\n3. Act on behalf of a relative: a persona in the frame without a policy or path.\n4. Track and activate the new card: the map ends at the order; delivery, activation and PIN are not described.\n5. Found the wallet: cancel the order, fee refund, what happens to the permanent block.\n\n## Hand over to other families\n\n- CJM: s8 shows fee and delivery term in response to confirming; V3 (\"date before confirmation\") likely violated.\n- CJM: V1 one-tap blocking contradicts s2 (two taps plus a 9-action screen).\n- Load: s7 address entry, K*40 on a phone in a moving train.\n- Load: internal status 'BLOCKED_PERM' and the word 'reissue' shown to users (s5).\n\n## Not checked\n\n- Live product, screens, code, analytics: none provided.\n- E10 screen reader and keyboard; E01 entry from push or website.\n- Persona answers come from one model run each; findings are `synthetic` until checked with people.\n\n## Method notes\n\n- The persona protocol asks to neutralize tested labels; at s3 the label is the object of the test, so it stayed visible.\n- `Personas: yes (3)` is below the 4–6 recommended by the method; the cast follows frame.md.\n",
+ "findings": [
+  {
+   "id": "EDGE-01",
+   "family": "edge",
+   "check": "E07",
+   "severity": "critical",
+   "steps": [
+    "s4",
+    "b1.s1",
+    "e1.s1"
+   ],
+   "title": "Blocking failure ends in a generic error; the card stays active",
+   "detail": "Source, Errors: 'If blocking fails, the app shows a generic error.' No retry, no status of the card, no route outside the app. Today: unknown what the user does next.",
+   "evidence_class": "provided",
+   "consequence": "The user may close the app believing the card is blocked; the card remains usable by whoever has it.",
+   "fix_hint": "Error states the card is NOT blocked, offers retry and a one-tap call to a 24/7 block line (branch e1).",
+   "confidence": "high",
+   "frequency": 1,
+   "impact": 3,
+   "root_cause": "dead-end-failure",
+   "evidence_ref": "journey-map.md, section Errors; journey.json b1.s1"
+  },
+  {
+   "id": "EDGE-02",
+   "family": "edge",
+   "check": "E12",
+   "severity": "critical",
+   "steps": [
+    "s8",
+    "s10",
+    "e2.s1"
+   ],
+   "title": "No way to pay before the new card arrives in 5–7 days",
+   "detail": "s10 feeling_reason: 'Still cannot pay for lunch today'. Owner vision V2 (virtual card) has no step in the map. Half of the JTBD ('keep paying for things today') is not delivered.",
+   "evidence_class": "provided",
+   "consequence": "Every user of this journey is left without a payment method for up to a week.",
+   "fix_hint": "Offer a virtual card on the block confirmation and on the order result (branch e2).",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 3,
+   "root_cause": "value-failure",
+   "evidence_ref": "journey-map.md, row 8 and Owner's vision V2",
+   "vision": [
+    "V2"
+   ],
+   "vision_status": "violated",
+   "personas": [
+    "p1"
+   ]
+  },
+  {
+   "id": "EDGE-03",
+   "family": "edge",
+   "check": "P",
+   "severity": "high",
+   "steps": [
+    "s3",
+    "e3.s1"
+   ],
+   "title": "2 of 3 personas could not tell temporary from permanent block; one chose temporary",
+   "detail": "p2 chose 'Block temporarily' because 'permanent' read as irreversible; p1 picked permanent but marked the step stuck. The map lists this failure on s3 with recovery 'unknown'. Interpretation: the users most afraid of losing money are the ones steered to the wrong option. Tested labels were visible to personas, so weight is lowered.",
+   "evidence_class": "synthetic",
+   "consequence": "The user who chose temporary cannot order a new card; whether the block can be switched is unknown.",
+   "fix_hint": "One line under each option: what stops, whether it can be undone, whether a new card follows. Allow switching temporary to permanent (branch e3).",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "root_cause": "boundary-without-alternative",
+   "personas": [
+    "p1",
+    "p2"
+   ]
+  },
+  {
+   "id": "EDGE-04",
+   "family": "edge",
+   "check": "E02",
+   "severity": "high",
+   "steps": [
+    "s5",
+    "s10",
+    "e5.s3"
+   ],
+   "title": "After blocking, the home screen loses the card tile; re-entry to reissue is not described",
+   "detail": "s10 response: 'Home screen without a card tile'. The card tile is the only described entry to card actions (s2). A user interrupted between s5 and s6 (train stop, call) has no described way back to 'Order a new card'.",
+   "evidence_class": "provided",
+   "consequence": "Card blocked, no new card ordered; the user finds out days later.",
+   "fix_hint": "Keep a 'Card blocked. Order a new one' element on the home screen until the order is placed; push reminder (branch e5).",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 2,
+   "root_cause": "no-return-path",
+   "evidence_ref": "journey.json s10, s2"
+  },
+  {
+   "id": "EDGE-05",
+   "family": "edge",
+   "check": "E06",
+   "severity": "high",
+   "steps": [
+    "s1",
+    "s6",
+    "s7",
+    "e4.s1"
+   ],
+   "title": "No path for a relative acting on behalf of the cardholder",
+   "detail": "frame.md lists 'relative acting for an elderly parent' as a persona; the map has one self-serving actor. Not stated: who may block or order on someone's behalf, whose name goes on the card, what proof is needed. p3 hesitated at the first screen: 'Is it even mine to do this?'",
+   "evidence_class": "absent",
+   "consequence": "Relative stops before blocking or acts without knowing whether it is allowed; the card stays active longer.",
+   "fix_hint": "Decide and state the policy for representatives; describe it as an adjacent journey.",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "root_cause": "missing-role",
+   "personas": [
+    "p3"
+   ]
+  },
+  {
+   "id": "EDGE-06",
+   "family": "edge",
+   "check": "P-p3",
+   "severity": "high",
+   "steps": [
+    "s8",
+    "e4.s4"
+   ],
+   "title": "The order summary does not show the delivery address",
+   "detail": "s8 response lists 'fee and delivery in 5–7 days' only. p3 (father moved two months ago) could not check where the card goes before confirming. Whether the address field is prefilled with the old address is unknown.",
+   "evidence_class": "synthetic",
+   "consequence": "Card goes to an old address; a new card with the holder's name is in a stranger's mailbox.",
+   "fix_hint": "Show the address on the summary with Edit; mark a prefilled address as 'from your profile'.",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "root_cause": "data-error-without-fix",
+   "personas": [
+    "p3"
+   ]
+  },
+  {
+   "id": "EDGE-07",
+   "family": "edge",
+   "check": "E09",
+   "severity": "medium",
+   "steps": [
+    "s7",
+    "s4",
+    "s8"
+   ],
+   "title": "Poor network in transit is not covered at the two waits",
+   "detail": "Persona context: standing in a train. Address entry s7 is K*40 keystrokes; s4 and s8 need a server answer. Today: unknown what happens to the typed address and to the block request on network loss.",
+   "evidence_class": "absent",
+   "consequence": "Retyping the address; uncertainty whether the block went through.",
+   "fix_hint": "Keep the form draft; make the block request idempotent and show its state after reconnect.",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 2,
+   "root_cause": "external-system-failure"
+  },
+  {
+   "id": "EDGE-08",
+   "family": "edge",
+   "check": "E05",
+   "severity": "medium",
+   "steps": [
+    "s8"
+   ],
+   "title": "Repeat tap on confirm during the wait may order two cards and charge two fees",
+   "detail": "s8 confirms an order with a fee; the map has no state for repeated submission. Today: unknown.",
+   "evidence_class": "hypothesis",
+   "consequence": "Double fee and two cards in delivery.",
+   "fix_hint": "Disable confirm after the first tap; deduplicate orders server-side.",
+   "confidence": "low",
+   "frequency": 1,
+   "impact": 2,
+   "root_cause": "external-system-failure"
+  },
+  {
+   "id": "EDGE-09",
+   "family": "edge",
+   "check": "E14",
+   "severity": "medium",
+   "steps": [
+    "s5",
+    "s8"
+   ],
+   "title": "No undo after permanent block or order; wallet found later is not covered",
+   "detail": "Undo column is '—' for rows 4 and 7. A lost (not stolen) wallet is often found; the map does not say whether the order can be cancelled or the fee refunded.",
+   "evidence_class": "provided",
+   "consequence": "Fee paid for a card the user no longer needs; old card unusable.",
+   "fix_hint": "State irreversibility on the dialog; allow cancelling the order until it ships.",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 2,
+   "root_cause": "no-return-path",
+   "evidence_ref": "journey-map.md, Undo column rows 4 and 7"
+  },
+  {
+   "id": "EDGE-10",
+   "family": "edge",
+   "check": "E11",
+   "severity": "medium",
+   "steps": [],
+   "title": "Transactions already made with the stolen card have no route",
+   "detail": "Stolen-card case (p3) implies possible spending before the block. The map ends at the order; no dispute or chargeback entry.",
+   "evidence_class": "absent",
+   "consequence": "User does not know whether and where to dispute charges; deadline may pass.",
+   "fix_hint": "After blocking, show recent transactions with 'I did not make this'. Adjacent journey.",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "root_cause": "boundary-without-alternative",
+   "personas": [
+    "p3"
+   ]
+  },
+  {
+   "id": "EDGE-11",
+   "family": "edge",
+   "check": "E09",
+   "severity": "medium",
+   "steps": [],
+   "title": "Phone lost together with the wallet: the app journey is unavailable",
+   "detail": "The journey assumes the user has their own phone. Today: unknown how to block from another device, the web or by phone.",
+   "evidence_class": "absent",
+   "consequence": "Card stays active until the user reaches a branch or finds the hotline.",
+   "fix_hint": "Describe blocking without the app as an adjacent journey; show the hotline on the bank's public site.",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "root_cause": "no-emergency-path"
+  },
+  {
+   "id": "EDGE-12",
+   "family": "edge",
+   "check": "E04",
+   "severity": "low",
+   "steps": [
+    "s2"
+   ],
+   "title": "Several cards on the account: which tile to block is not described",
+   "detail": "s1–s2 describe one card tile. With two or more cards the user must identify the lost one. Today: unknown.",
+   "evidence_class": "hypothesis",
+   "consequence": "Blocks the wrong card; the lost card stays active.",
+   "fix_hint": "Show last 4 digits and card type on each tile and in the dialog.",
+   "confidence": "low",
+   "frequency": 1,
+   "impact": 3,
+   "root_cause": "data-error-without-fix"
+  },
+  {
+   "id": "EDGE-13",
+   "family": "edge",
+   "check": "P-p1",
+   "severity": "medium",
+   "steps": [
+    "s8"
+   ],
+   "title": "Fee amount is not stated in the map's summary",
+   "detail": "s8: 'Order summary with fee'; feeling_reason 'a fee nobody mentioned'. p1: 'Fee... how much?'. Amount and the moment it is first shown are unknown.",
+   "evidence_class": "synthetic",
+   "consequence": "User confirms a charge of unknown size or abandons at s8.",
+   "fix_hint": "Show the amount before the form (s6) and on the summary.",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 1,
+   "root_cause": "hidden-without-explanation",
+   "personas": [
+    "p1"
+   ]
+  }
+ ]
+}

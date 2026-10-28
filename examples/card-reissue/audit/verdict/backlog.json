@@ -1,0 +1,344 @@
+{
+ "verdict": "Rework",
+ "verdict_reason": "Three P0 goals (pay today, honest blocking failure, one-tap blocking) are solvable inside the current journey; becomes Redesign if the bank cannot issue an instant virtual card.",
+ "goals": [
+  {
+   "id": "G-01",
+   "priority": "P0",
+   "title": "After blocking, the user can pay today",
+   "metric": {
+    "name": "Permanent blocks followed by a virtual card added to a phone wallet within 10 min",
+    "current": "0 % (no step)",
+    "target": "≥ 60 %",
+    "measure": "virtual_card_added_to_wallet / card_blocked{type=permanent}"
+   },
+   "findings": [
+    "CJM-01",
+    "CJM-03",
+    "EDGE-02",
+    "LOAD-07"
+   ],
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "owner": "business/content",
+   "effort": "L",
+   "score": 36.0,
+   "steps": [
+    "s5",
+    "s10",
+    "e2.s1"
+   ],
+   "spec": "specs/G-01.md",
+   "owner_decisions": [
+    "Can the bank issue an instant virtual card after a permanent block (V2)? If no, verdict becomes Redesign"
+   ]
+  },
+  {
+   "id": "G-02",
+   "priority": "P0",
+   "title": "A failed block says the card is NOT blocked and offers retry and a 24/7 line",
+   "metric": {
+    "name": "Failed blocks resolved (retry or call) within 10 min",
+    "current": "not measured",
+    "target": "≥ 95 %",
+    "measure": "card_block_failed → card_blocked | hotline_call_tapped"
+   },
+   "findings": [
+    "CJM-07",
+    "EDGE-01",
+    "CJM-08",
+    "LOAD-03"
+   ],
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "owner": "engineering",
+   "effort": "M",
+   "score": 18.0,
+   "steps": [
+    "s4",
+    "b1.s1",
+    "e1.s1"
+   ],
+   "spec": "specs/G-02.md",
+   "owner_decisions": [
+    "24/7 block line number and identification rules",
+    "Timeout and expected time after measuring block duration"
+   ]
+  },
+  {
+   "id": "G-03",
+   "priority": "P0",
+   "title": "Blocking starts with one tap from the home screen",
+   "metric": {
+    "name": "Taps from home to card blocked",
+    "current": "4 (map)",
+    "target": "2",
+    "measure": "ui_tap count between home_shown and card_blocked"
+   },
+   "findings": [
+    "CJM-02",
+    "LOAD-04"
+   ],
+   "families": [
+    "cjm",
+    "load"
+   ],
+   "owner": "design",
+   "effort": "M",
+   "score": 45.0,
+   "steps": [
+    "s1",
+    "s2",
+    "s3"
+   ],
+   "spec": "specs/G-03.md",
+   "owner_decisions": [
+    "Does V1 'one tap' include the confirmation tap? Default: no"
+   ]
+  },
+  {
+   "id": "G-04",
+   "priority": "P1",
+   "title": "Fee and delivery date are known before the order form",
+   "metric": {
+    "name": "Orders where fee and date were shown before s6",
+    "current": "0 %",
+    "target": "100 %",
+    "measure": "reissue_terms_shown before reissue_form_opened"
+   },
+   "findings": [
+    "CJM-05",
+    "CJM-04",
+    "LOAD-02",
+    "EDGE-13"
+   ],
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "owner": "product",
+   "effort": "M",
+   "score": 18.0,
+   "steps": [
+    "s5",
+    "s6",
+    "s8"
+   ],
+   "spec": "specs/G-04.md",
+   "owner_decisions": [
+    "Reissue fee rule for lost or stolen cards",
+    "Concrete delivery date needs a logistics commitment"
+   ]
+  },
+  {
+   "id": "G-05",
+   "priority": "P1",
+   "title": "A relative knows on one screen what they may do for the cardholder",
+   "metric": {
+    "name": "Relatives in a test who name the allowed action within 1 min",
+    "current": "not measured",
+    "target": "≥ 4 of 5",
+    "measure": "usability test; representative_info_opened → card_blocked | hotline_call_tapped"
+   },
+   "findings": [
+    "EDGE-05"
+   ],
+   "families": [
+    "edge"
+   ],
+   "owner": "legal or domain review",
+   "effort": "S",
+   "score": 16.8,
+   "steps": [
+    "s1",
+    "s3",
+    "e4.s1"
+   ],
+   "spec": "specs/G-05.md",
+   "owner_decisions": [
+    "May a relative block, order a reissue or change the address?"
+   ]
+  },
+  {
+   "id": "G-06",
+   "priority": "P1",
+   "title": "Choosing a block type cannot strand the user without a new card",
+   "metric": {
+    "name": "Temporary blocks from 'Lost or stolen' upgraded within 24 h",
+    "current": "not measured",
+    "target": "< 5 %",
+    "measure": "card_blocked{type=temporary, entry=lost} → card_block_upgraded"
+   },
+   "findings": [
+    "CJM-06",
+    "EDGE-03"
+   ],
+   "families": [
+    "cjm",
+    "edge"
+   ],
+   "owner": "design",
+   "effort": "M",
+   "score": 15.0,
+   "steps": [
+    "s3",
+    "e3.s1"
+   ],
+   "spec": "specs/G-06.md",
+   "owner_decisions": [
+    "Can a temporary block be upgraded in the app and still allow a reissue?"
+   ]
+  },
+  {
+   "id": "G-07",
+   "priority": "P1",
+   "title": "The blocked card and the order stay visible in the app until the new card is active",
+   "metric": {
+    "name": "Users with a blocked card or pending order who see its status on home",
+    "current": "0 % (tile removed)",
+    "target": "100 %",
+    "measure": "home_card_status_shown{state}"
+   },
+   "findings": [
+    "CJM-10",
+    "CJM-15",
+    "EDGE-04"
+   ],
+   "families": [
+    "cjm",
+    "edge"
+   ],
+   "owner": "product",
+   "effort": "M",
+   "score": 15.0,
+   "steps": [
+    "s5",
+    "s9",
+    "s10",
+    "e5.s3"
+   ],
+   "spec": "specs/G-07.md",
+   "owner_decisions": [
+    "Which issuer rejection reasons may be shown to users"
+   ]
+  },
+  {
+   "id": "G-08",
+   "priority": "P1",
+   "title": "An unchanged address is confirmed without typing and shown on the summary",
+   "metric": {
+    "name": "Orders with address confirmed without typing",
+    "current": "0 %",
+    "target": "≥ 80 %",
+    "measure": "reissue_address_confirmed{source=profile} / reissue_confirmed"
+   },
+   "findings": [
+    "LOAD-01",
+    "CJM-13",
+    "EDGE-06"
+   ],
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "owner": "design",
+   "effort": "M",
+   "score": 12.6,
+   "steps": [
+    "s6",
+    "s7",
+    "s8"
+   ],
+   "spec": "specs/G-08.md",
+   "owner_decisions": [
+    "Does an edited address update the profile or only this order?"
+   ]
+  },
+  {
+   "id": "P2-01",
+   "priority": "P2",
+   "title": "Plain-language block confirmation instead of BLOCKED_PERM",
+   "findings": [
+    "CJM-09",
+    "LOAD-06"
+   ],
+   "score": 7.5,
+   "effort": "S"
+  },
+  {
+   "id": "P2-02",
+   "priority": "P2",
+   "title": "Map revision: split s2, list invented facts",
+   "findings": [
+    "CJM-11",
+    "CJM-17"
+   ],
+   "score": 6.0,
+   "effort": "S"
+  },
+  {
+   "id": "P2-03",
+   "priority": "P2",
+   "title": "Adjacent journey: dispute transactions made with the stolen card",
+   "findings": [
+    "CJM-16",
+    "EDGE-10"
+   ],
+   "score": 5.3,
+   "effort": "M"
+  },
+  {
+   "id": "P2-04",
+   "priority": "P2",
+   "title": "Adjacent journey: block a card without the app",
+   "findings": [
+    "EDGE-11"
+   ],
+   "score": 4.2,
+   "effort": "M"
+  },
+  {
+   "id": "P2-05",
+   "priority": "P2",
+   "title": "Keep form draft and idempotent block request on poor network",
+   "findings": [
+    "EDGE-07"
+   ],
+   "score": 4.2,
+   "effort": "M"
+  },
+  {
+   "id": "P2-06",
+   "priority": "P2",
+   "title": "Card design and name on card prefilled or dropped",
+   "findings": [
+    "CJM-14"
+   ],
+   "score": 4.2,
+   "effort": "S"
+  }
+ ],
+ "deferred": [
+  "EDGE-08",
+  "EDGE-09",
+  "EDGE-12"
+ ],
+ "validation_only": [
+  "CJM-12"
+ ],
+ "not_checked": [
+  "Map vs live product (L16): no screens, code or analytics",
+  "Real blocking and issuer wait times; generic error text; s3 dialog copy",
+  "Screen reader and keyboard (E10); entry from push or website (E01)",
+  "Real emotions and moments of truth",
+  "Adjacent journeys: disputes, blocking without the app, tracking and activation"
+ ]
+}

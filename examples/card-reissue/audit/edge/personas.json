@@ -1,0 +1,97 @@
+{
+ "mode": "description",
+ "model": "haiku",
+ "stages": "A (home screen only, no task) then B (mission + 9 screens with shuffled labels K–Z, no step numbers)",
+ "hint_check": "Missions avoid the words block, reissue, virtual, temporary, permanent. The dialog screen itself shows 'Block temporarily / Block permanently': the tested labels could not be neutralized, so unanimity at s3 is weighted lower.",
+ "cast": [
+  {
+   "id": "p1",
+   "name": "Dan, 29",
+   "role": "customer",
+   "tech": "mid",
+   "patience": "medium",
+   "device": "iPhone, default font, mobile internet",
+   "arrival": "installed the app for the first time today",
+   "knows_cold": "how card payments work in shops",
+   "objections": "does not know where things live in the app",
+   "would_convert_if": "finds what he needs without guessing",
+   "gives_up_when": "has to guess what a button does with his money",
+   "mission": "Deal with the lost card in the app and be able to buy lunch today",
+   "outcome": "partial",
+   "exit_step": "s8",
+   "stuck_at": [
+    "s3",
+    "s8"
+   ],
+   "quotes": [
+    "Lost it, not stolen. So which block do I pick?",
+    "Five to seven days. So what do I pay for lunch today?"
+   ]
+  },
+  {
+   "id": "p2",
+   "name": "Valentina, 66",
+   "role": "customer",
+   "tech": "low",
+   "patience": "low",
+   "device": "Android, largest system font",
+   "arrival": "grandson set up the app; she only checks the balance",
+   "knows_cold": "her pension arrives on the card",
+   "objections": "afraid of irreversible taps; distrusts technical words",
+   "would_convert_if": "every button says plainly what happens",
+   "gives_up_when": "a choice looks irreversible; then she phones the bank",
+   "mission": "Make sure nobody takes my pension with that card and get a card back",
+   "outcome": "partial",
+   "exit_step": "s3",
+   "stuck_at": [
+    "s3"
+   ],
+   "chose": "Block temporarily",
+   "quotes": [
+    "Which one is the permanent one? I don't want to lose my money.",
+    "What does reissue mean? Is that a new card?"
+   ]
+  },
+  {
+   "id": "p3",
+   "name": "Marina, 41",
+   "role": "relative acting for her father, 78",
+   "tech": "high",
+   "patience": "medium",
+   "device": "father's Android phone",
+   "arrival": "father's wallet was stolen; she came over",
+   "knows_cold": "another bank's app",
+   "objections": "not sure she may act in his account; father moved recently",
+   "would_convert_if": "card stopped now, new one reaches the current address",
+   "gives_up_when": "the app needs something only her father can do",
+   "mission": "Stop Dad's card and get him a new one at his new place",
+   "outcome": "partial",
+   "exit_step": null,
+   "stuck_at": [],
+   "quotes": [
+    "Is it even mine to do this? It's his account.",
+    "Please just show me the address before I press the button."
+   ]
+  }
+ ],
+ "summary": [
+  {
+   "persona": "p1",
+   "outcome": "partial",
+   "exit_step": "s8",
+   "main_friction": "No way to pay today; fee amount not stated"
+  },
+  {
+   "persona": "p2",
+   "outcome": "partial",
+   "exit_step": "s3",
+   "main_friction": "Chose temporary block: 'permanent' reads as irreversible"
+  },
+  {
+   "persona": "p3",
+   "outcome": "partial",
+   "exit_step": null,
+   "main_friction": "Cannot check the delivery address before confirming"
+  }
+ ]
+}

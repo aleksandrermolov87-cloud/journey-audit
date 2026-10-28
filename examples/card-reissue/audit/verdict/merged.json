@@ -1,0 +1,716 @@
+{
+ "total_findings": 37,
+ "clusters": [
+  {
+   "cluster": "K-03",
+   "priority_hint": "P0",
+   "score": 54.0,
+   "severity": "critical",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 3,
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "steps": [
+    "e2.s1",
+    "s10",
+    "s8"
+   ],
+   "vision": [
+    "V2"
+   ],
+   "useful_friction": false,
+   "root_cause": [
+    "value-failure"
+   ],
+   "findings": [
+    {
+     "id": "CJM-03",
+     "check": "V2",
+     "title": "V2 'pay today with a virtual card' is not touched by any step"
+    },
+    {
+     "id": "EDGE-02",
+     "check": "E12",
+     "title": "No way to pay before the new card arrives in 5–7 days"
+    },
+    {
+     "id": "LOAD-07",
+     "check": "C-s10",
+     "title": "Journey ends with uncertainty 2: no way to pay today is shown"
+    }
+   ]
+  },
+  {
+   "cluster": "K-01",
+   "priority_hint": "P0",
+   "score": 36.0,
+   "severity": "critical",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 3,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s10"
+   ],
+   "vision": [
+    "V2"
+   ],
+   "useful_friction": false,
+   "root_cause": [
+    "goal-contradiction"
+   ],
+   "findings": [
+    {
+     "id": "CJM-01",
+     "check": "H1",
+     "title": "Stated job 'keep paying today' has no stage; journey ends with no card at all"
+    }
+   ]
+  },
+  {
+   "cluster": "K-02",
+   "priority_hint": "P0",
+   "score": 36.0,
+   "severity": "critical",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 3,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s1",
+    "s2",
+    "s3"
+   ],
+   "vision": [
+    "V1"
+   ],
+   "useful_friction": false,
+   "root_cause": [
+    "goal-contradiction"
+   ],
+   "findings": [
+    {
+     "id": "CJM-02",
+     "check": "V1",
+     "title": "V1 'one tap from home' vs 3+ taps, a 9-action screen and a choice dialog"
+    }
+   ]
+  },
+  {
+   "cluster": "K-06",
+   "priority_hint": "P0",
+   "score": 15.0,
+   "severity": "critical",
+   "confidence": "high",
+   "frequency": 1,
+   "impact": 3,
+   "families": [
+    "cjm",
+    "edge"
+   ],
+   "steps": [
+    "b1.s1",
+    "e1.s1",
+    "s4"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "dead-end-failure"
+   ],
+   "findings": [
+    {
+     "id": "CJM-07",
+     "check": "L05",
+     "title": "Blocking failure ends in a generic error; card stays active, no way out"
+    },
+    {
+     "id": "EDGE-01",
+     "check": "E07",
+     "title": "Blocking failure ends in a generic error; the card stays active"
+    }
+   ]
+  },
+  {
+   "cluster": "K-05",
+   "priority_hint": "P1",
+   "score": 12.0,
+   "severity": "high",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s3"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "dead-end-failure"
+   ],
+   "findings": [
+    {
+     "id": "CJM-06",
+     "check": "L05",
+     "title": "Temporary vs permanent block: wrong choice blocks the reissue, recovery unknown"
+    }
+   ]
+  },
+  {
+   "cluster": "K-09",
+   "priority_hint": "P1",
+   "score": 12.0,
+   "severity": "high",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s9"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "external-system-failure"
+   ],
+   "findings": [
+    {
+     "id": "CJM-10",
+     "check": "L13",
+     "title": "Issuer acceptance (s9) has no described failure"
+    }
+   ]
+  },
+  {
+   "cluster": "K-11",
+   "priority_hint": "P1",
+   "score": 12.0,
+   "severity": "high",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "b1.s1",
+    "s3",
+    "s8"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "no-evidence"
+   ],
+   "findings": [
+    {
+     "id": "CJM-12",
+     "check": "L10",
+     "title": "Both moments of truth rest on assumptions; 73 % of steps are assumed"
+    },
+    {
+     "id": "CJM-17",
+     "check": "NORM",
+     "title": "Some journey.json facts are not traceable to the map"
+    }
+   ]
+  },
+  {
+   "cluster": "K-07",
+   "priority_hint": "P1",
+   "score": 10.5,
+   "severity": "high",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "cjm",
+    "load"
+   ],
+   "steps": [
+    "b1.s1",
+    "s4"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "unknown-wait"
+   ],
+   "findings": [
+    {
+     "id": "CJM-08",
+     "check": "L14",
+     "title": "Blocking wait has a spinner but no known duration"
+    },
+    {
+     "id": "LOAD-03",
+     "check": "C-s4",
+     "title": "Blocking wait is unknown; on failure the model flags a 30 s silent wait as overload"
+    }
+   ]
+  },
+  {
+   "cluster": "K-12",
+   "priority_hint": "P1",
+   "score": 10.5,
+   "severity": "high",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "cjm",
+    "load"
+   ],
+   "steps": [
+    "s7"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "mobile-context"
+   ],
+   "findings": [
+    {
+     "id": "CJM-13",
+     "check": "H1",
+     "title": "Context 'often on the move' vs typing a full address in the train"
+    },
+    {
+     "id": "LOAD-01",
+     "check": "C-s7",
+     "title": "Address typed on a phone in a train takes 56% of the journey's KLM time"
+    }
+   ]
+  },
+  {
+   "cluster": "K-14",
+   "priority_hint": "P1",
+   "score": 10.0,
+   "severity": "high",
+   "confidence": "high",
+   "frequency": 2,
+   "impact": 2,
+   "families": [
+    "cjm",
+    "edge"
+   ],
+   "steps": [
+    "e5.s3",
+    "s10",
+    "s5",
+    "s8"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "no-return-path"
+   ],
+   "findings": [
+    {
+     "id": "CJM-15",
+     "check": "L15",
+     "title": "Journey stops at 'closes the app'; wait, delivery, activation, return visit absent"
+    },
+    {
+     "id": "EDGE-04",
+     "check": "E02",
+     "title": "After blocking, the home screen loses the card tile; re-entry to reissue is not described"
+    },
+    {
+     "id": "EDGE-09",
+     "check": "E14",
+     "title": "No undo after permanent block or order; wallet found later is not covered"
+    }
+   ]
+  },
+  {
+   "cluster": "K-04",
+   "priority_hint": "P1",
+   "score": 9.0,
+   "severity": "high",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "cjm",
+    "edge",
+    "load"
+   ],
+   "steps": [
+    "s6",
+    "s8"
+   ],
+   "vision": [
+    "V3"
+   ],
+   "useful_friction": false,
+   "root_cause": [
+    "hidden-without-explanation"
+   ],
+   "findings": [
+    {
+     "id": "CJM-04",
+     "check": "V3",
+     "title": "Delivery shown as '5–7 days' and only in the summary at confirmation"
+    },
+    {
+     "id": "CJM-05",
+     "check": "H1",
+     "title": "Reissue fee first appears in the order summary"
+    },
+    {
+     "id": "EDGE-13",
+     "check": "P-p1",
+     "title": "Fee amount is not stated in the map's summary"
+    },
+    {
+     "id": "LOAD-02",
+     "check": "C-s8",
+     "title": "Fee and 5–7 day delivery appear for the first time at the order confirmation"
+    }
+   ]
+  },
+  {
+   "cluster": "K-16",
+   "priority_hint": "P1",
+   "score": 8.4,
+   "severity": "high",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "families": [
+    "edge"
+   ],
+   "steps": [
+    "e3.s1",
+    "s3"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "boundary-without-alternative"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-03",
+     "check": "P",
+     "title": "2 of 3 personas could not tell temporary from permanent block; one chose temporary"
+    },
+    {
+     "id": "EDGE-10",
+     "check": "E11",
+     "title": "Transactions already made with the stolen card have no route"
+    }
+   ]
+  },
+  {
+   "cluster": "K-17",
+   "priority_hint": "P1",
+   "score": 8.4,
+   "severity": "high",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "families": [
+    "edge"
+   ],
+   "steps": [
+    "e4.s1",
+    "s1",
+    "s6",
+    "s7"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "missing-role"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-05",
+     "check": "E06",
+     "title": "No path for a relative acting on behalf of the cardholder"
+    }
+   ]
+  },
+  {
+   "cluster": "K-18",
+   "priority_hint": "P1",
+   "score": 8.4,
+   "severity": "high",
+   "confidence": "med",
+   "frequency": 2,
+   "impact": 3,
+   "families": [
+    "edge"
+   ],
+   "steps": [
+    "e4.s4",
+    "s8"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "data-error-without-fix"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-06",
+     "check": "P-p3",
+     "title": "The order summary does not show the delivery address"
+    }
+   ]
+  },
+  {
+   "cluster": "K-20",
+   "priority_hint": "P2",
+   "score": 7.5,
+   "severity": "medium",
+   "confidence": "high",
+   "frequency": 2,
+   "impact": 3,
+   "families": [
+    "edge",
+    "load"
+   ],
+   "steps": [
+    "s1",
+    "s2"
+   ],
+   "vision": [
+    "V1"
+   ],
+   "useful_friction": false,
+   "root_cause": [
+    "no-emergency-path"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-11",
+     "check": "E09",
+     "title": "Phone lost together with the wallet: the app journey is unavailable"
+    },
+    {
+     "id": "LOAD-04",
+     "check": "C-s2",
+     "title": "Reaching Block takes two screens and a choice among 9 card actions"
+    }
+   ]
+  },
+  {
+   "cluster": "K-19",
+   "priority_hint": "P2",
+   "score": 4.2,
+   "severity": "medium",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 2,
+   "families": [
+    "edge"
+   ],
+   "steps": [
+    "s4",
+    "s7",
+    "s8"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "external-system-failure"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-07",
+     "check": "E09",
+     "title": "Poor network in transit is not covered at the two waits"
+    },
+    {
+     "id": "EDGE-08",
+     "check": "E05",
+     "title": "Repeat tap on confirm during the wait may order two cards and charge two fees"
+    }
+   ]
+  },
+  {
+   "cluster": "K-08",
+   "priority_hint": "P2",
+   "score": 3.8,
+   "severity": "medium",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "cjm",
+    "load"
+   ],
+   "steps": [
+    "s5"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "internal-language"
+   ],
+   "findings": [
+    {
+     "id": "CJM-09",
+     "check": "L19",
+     "title": "Confirmation shows the internal status code BLOCKED_PERM"
+    },
+    {
+     "id": "LOAD-06",
+     "check": "C-s5",
+     "title": "Confirmation shows the internal status BLOCKED_PERM and the word reissue"
+    }
+   ]
+  },
+  {
+   "cluster": "K-10",
+   "priority_hint": "P2",
+   "score": 3.0,
+   "severity": "medium",
+   "confidence": "high",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s2"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "merged-steps"
+   ],
+   "findings": [
+    {
+     "id": "CJM-11",
+     "check": "L04",
+     "title": "Step s2 merges two actions: open the card, open settings"
+    }
+   ]
+  },
+  {
+   "cluster": "K-13",
+   "priority_hint": "deferred",
+   "score": 2.1,
+   "severity": "medium",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s6"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "unrequested-scope"
+   ],
+   "findings": [
+    {
+     "id": "CJM-14",
+     "check": "L18",
+     "title": "Reissue form asks for card design and name on card"
+    }
+   ]
+  },
+  {
+   "cluster": "K-15",
+   "priority_hint": "deferred",
+   "score": 2.1,
+   "severity": "medium",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "cjm"
+   ],
+   "steps": [
+    "s5"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "goal-contradiction"
+   ],
+   "findings": [
+    {
+     "id": "CJM-16",
+     "check": "L07",
+     "title": "No step checks spending between loss and block"
+    }
+   ]
+  },
+  {
+   "cluster": "K-22",
+   "priority_hint": "deferred",
+   "score": 2.1,
+   "severity": "medium",
+   "confidence": "med",
+   "frequency": 3,
+   "impact": 1,
+   "families": [
+    "load"
+   ],
+   "steps": [
+    "s3"
+   ],
+   "vision": [],
+   "useful_friction": true,
+   "root_cause": [
+    "hidden-without-explanation"
+   ],
+   "findings": [
+    {
+     "id": "LOAD-05",
+     "check": "C-s3",
+     "title": "Temporary vs permanent block offered without consequences"
+    }
+   ]
+  },
+  {
+   "cluster": "K-21",
+   "priority_hint": "deferred",
+   "score": 0.6,
+   "severity": "low",
+   "confidence": "low",
+   "frequency": 1,
+   "impact": 3,
+   "families": [
+    "edge"
+   ],
+   "steps": [
+    "s2"
+   ],
+   "vision": [],
+   "useful_friction": false,
+   "root_cause": [
+    "data-error-without-fix"
+   ],
+   "findings": [
+    {
+     "id": "EDGE-12",
+     "check": "E04",
+     "title": "Several cards on the account: which tile to block is not described"
+    }
+   ]
+  }
+ ],
+ "note": "Effort assumed M=2; priority is a hint, the verdict agent decides."
+}
