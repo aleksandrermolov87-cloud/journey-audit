@@ -32,7 +32,7 @@ journey.json ──► ├─ journey-edge-auditor  (скилл journey-edge)  �
 Найди скрипт один раз и проверь файл, прежде чем раздавать его агентам:
 
 ```bash
-JC=$(find ~/.claude ~/.codex ~/.agents . -path '*journey-audit/scripts/journey_check.py' 2>/dev/null | head -1)
+JC=$(find -L ~/.claude ~/.codex ~/.agents . -maxdepth 9 -path '*journey-audit/scripts/journey_check.py' 2>/dev/null | head -1)
 python3 "$JC" check <work>/journey.json --lang ru
 ```
 

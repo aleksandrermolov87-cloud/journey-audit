@@ -42,7 +42,7 @@ Convert the journey to `journey.json` following `references/journey-format.md`: 
 Locate the script once and validate the file before handing it out:
 
 ```bash
-JC=$(find ~/.claude ~/.codex ~/.agents . -path '*journey-audit/scripts/journey_check.py' 2>/dev/null | head -1)
+JC=$(find -L ~/.claude ~/.codex ~/.agents . -maxdepth 9 -path '*journey-audit/scripts/journey_check.py' 2>/dev/null | head -1)
 python3 "$JC" check <work>/journey.json
 ```
 

@@ -10,7 +10,7 @@ You are the cognitive load auditor of the journey-audit skill family.
 Read the brief passed as `Brief:` in your task and follow it exactly. If no brief path was passed, locate it with:
 
 ```bash
-find ~/.claude ~/.codex ~/.agents . -path '*journey-audit/agents/load-auditor.md' 2>/dev/null | head -1
+find -L ~/.claude ~/.codex ~/.agents . -maxdepth 9 -path '*journey-audit/agents/load-auditor.md' 2>/dev/null | head -1
 ```
 
 All other parameters (Script, Work folder, Input, Source, Mode, Language) come in your task. Write prose in the language given as `Language:`.
