@@ -3,7 +3,7 @@ name: journey-verdict
 description: Final verdict for a customer journey audit — merges findings of the CJM logic, edge-case and cognitive load families, resolves conflicts between them, decides a verdict (ready / ready with conditions / rework / redesign), sets priorities P0–P2 and goals with metrics, writes fix specs (TO BE fragment, states, UI copy, Given/When/Then acceptance criteria, analytics events, test cases), a full TO BE journey and a usability validation plan. Part of the journey-audit family; usually run by the journey-verdict agent. Call directly when findings already exist and the user asks "what should we fix first", "prioritize", "write specs", "build a backlog from the CJM audit". Russian: «что чинить первым», «приоритеты и спеки».
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   family: journey-audit
 ---
 

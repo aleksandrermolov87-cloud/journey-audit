@@ -43,20 +43,42 @@
 
 ## Установка
 
-**Плагином** (скиллы + четыре типа агентов, рекомендуется):
+### Плагин для Claude Code
+
+Пять скиллов и четыре типа агентов:
 
 ```text
 /plugin marketplace add aleksandrermolov87-cloud/journey-audit
 /plugin install journey-audit@journey-audit
 ```
 
-**Только скиллы**, через открытый CLI для скиллов:
+### Плагин для Codex
+
+Пять скиллов:
+
+```bash
+codex plugin marketplace add aleksandrermolov87-cloud/journey-audit
+codex plugin add journey-audit@journey-audit
+```
+
+По желанию — четыре типа агентов как кастомные агенты Codex (без них оркестратор запускает субагентов `default` с теми же брифами):
+
+```bash
+mkdir -p ~/.codex/agents
+cp ~/.codex/plugins/cache/journey-audit/journey-audit/*/codex/agents/*.toml ~/.codex/agents/
+```
+
+После установки перезапустите Codex. В Codex скиллы называются `journey-audit:journey-audit`, `journey-audit:journey-cjm` и так далее.
+
+### Другие агенты
+
+Только скиллы, через открытый CLI для скиллов:
 
 ```bash
 npx skills add aleksandrermolov87-cloud/journey-audit
 ```
 
-**Вручную** — клонировать и скопировать пять папок скиллов в папку скиллов вашего агента:
+Или вручную — клонировать и скопировать пять папок скиллов в папку скиллов вашего агента:
 
 ```bash
 git clone https://github.com/aleksandrermolov87-cloud/journey-audit.git
@@ -90,7 +112,7 @@ cp -r journey-audit/skills/* ~/.claude/skills/
 | [`journey-load`](skills/journey-load/SKILL.ru.md) | Семейство когнитивной нагрузки | Только нагрузка, AS IS против TO BE |
 | [`journey-verdict`](skills/journey-verdict/SKILL.ru.md) | Вердикт, приоритеты, спеки | Приоритеты и спеки по готовым находкам |
 
-Агенты (при установке плагином): `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor`, `journey-verdict`. Их брифы — в [`skills/journey-audit/agents/`](skills/journey-audit/agents).
+Агенты: `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor`, `journey-verdict` — Markdown-определения для Claude Code в [`agents/`](agents), TOML-определения для Codex в [`codex/agents/`](codex/agents). И те и другие — тонкие обёртки над общими брифами в [`skills/journey-audit/agents/`](skills/journey-audit/agents).
 
 Каждый скилл есть на английском (`SKILL.md`, `references/`) и на русском (`SKILL.ru.md`, `references/ru/`). Агент отвечает на языке пользователя.
 

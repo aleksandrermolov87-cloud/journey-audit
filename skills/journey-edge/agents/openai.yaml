@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journey Edge Cases"
+  short_description: "Find secondary and edge-case scenarios a journey skips"
+  default_prompt: "What edge cases and unhappy paths did this journey miss?"

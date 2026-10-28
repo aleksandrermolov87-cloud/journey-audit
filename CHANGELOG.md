@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — 2026-10-28
+
+- Codex plugin: `.codex-plugin/plugin.json` with a store card, repo marketplace `.agents/plugins/marketplace.json`, `agents/openai.yaml` for every skill, icon and logo.
+- Codex custom agents: `codex/agents/*.toml` for the three auditors and the verdict agent.
+- Claude Code plugin and marketplace pass `claude plugin validate --strict`.
+- Script and briefs are found through symlinked and cached plugin installs (`find -L`).
+
 ## 1.0.0 — 2026-10-28
 
 - Orchestrator skill `journey-audit` with four agent briefs and a shared findings contract.

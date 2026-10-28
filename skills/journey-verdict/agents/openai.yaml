@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journey Verdict"
+  short_description: "Turn audit findings into priorities, goals and specs"
+  default_prompt: "Prioritize these journey findings and write fix specs."

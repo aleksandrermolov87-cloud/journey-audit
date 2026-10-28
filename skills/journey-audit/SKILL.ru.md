@@ -42,7 +42,7 @@ python3 "$JC" check <work>/journey.json --lang ru
 
 Рабочая папка `<work>` — рядом с исходником или там, где сказал пользователь. Создай в ней `cjm/`, `edge/`, `load/`, `verdict/`.
 
-Запусти три агента **в одном сообщении**. Если доступны типы `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor` (установка плагином), используй их; иначе — агента общего назначения. В каждом промпте один и тот же блок параметров:
+Запусти три агента **в одном сообщении**. Если доступны типы `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor` (плагин Claude Code или Codex с файлами `codex/agents/*.toml`, скопированными в `~/.codex/agents/`), используй их; иначе — субагента общего назначения (`default` / `worker` в Codex). В каждом промпте один и тот же блок параметров:
 
 ```
 Brief: <папка этого скилла>/agents/<cjm|edge|load>-auditor.md

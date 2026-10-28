@@ -3,7 +3,7 @@ name: journey-load
 description: Simulated cognitive load audit for customer journeys and user flows — per-step load index 0–100 with open weights (decisions, options per Hick's law, fields, new terms, working-memory items, context switches, waiting, uncertainty), Keystroke-Level Model (KLM) time, accumulated fatigue, likely exit points, sensitivity across persona profiles, Nielsen and Krug heuristics per step, intrinsic vs extraneous load with three levers to cut it. Part of the journey-audit family; usually run by the journey-load-auditor agent. Call directly when the user asks only about load — "where will users get tired", "how many decisions on this step", "is this screen overloaded", "compare load AS IS vs TO BE". Russian: «когнитивная нагрузка», «где пользователь устанет».
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   family: journey-audit
 ---
 

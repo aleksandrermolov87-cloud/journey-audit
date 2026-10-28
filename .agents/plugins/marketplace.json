@@ -1,0 +1,13 @@
+{
+  "name": "journey-audit",
+  "interface": {"displayName": "Journey Audit"},
+  "plugins": [
+    {
+      "name": "journey-audit",
+      "source": {"source": "local", "path": "./"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"},
+      "category": "Productivity",
+      "interface": {"displayName": "Journey Audit"}
+    }
+  ]
+}

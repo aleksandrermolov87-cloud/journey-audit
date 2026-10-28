@@ -3,7 +3,7 @@ name: journey-cjm
 description: CJM logic audit — structural checks L01–L20 for customer journey maps, emotion curve analysis, service blueprint layers (frontstage/backstage), mature-map review (contradictions between goals and steps, drift between the map and the live product), owner-vision coverage. Part of the journey-audit family; usually run by the journey-cjm-auditor agent. Call directly only when the user asks about the logic of a journey map alone — "is this CJM consistent", "are steps merged", "where do these emotions come from", "does the map match the intent" — without edge cases or cognitive load. Russian: «логика CJM», «проверь карту пути».
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   family: journey-audit
 ---
 

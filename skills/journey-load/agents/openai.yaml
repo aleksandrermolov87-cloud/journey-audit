@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journey Cognitive Load"
+  short_description: "Simulate cognitive load step by step"
+  default_prompt: "Where will users get tired or drop off in this flow?"

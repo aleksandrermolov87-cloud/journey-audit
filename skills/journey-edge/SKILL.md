@@ -3,7 +3,7 @@ name: journey-edge
 description: Secondary and edge-case scenario audit for customer journeys and user flows — 14 edge-case axes (entry, interruption and return, data errors, ordering, roles, external failures, time, device, accessibility, service boundaries, value failure, emotional state, exit), flow checklists (entry, forms, uploads, waiting, AI answers, payments, empty states, deletion), synthetic personas in description or browser mode, alternative and adjacent journeys ranked by frequency × impact. Part of the journey-audit family; usually run by the journey-edge-auditor agent. Call directly when the user asks only for edge cases, unhappy paths, negative or alternative scenarios — "what if the user…", "what did we miss", "run personas through the prototype". Russian: «краевые сценарии», «нестандартные сценарии», «что мы не учли».
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   family: journey-audit
 ---
 

@@ -43,20 +43,42 @@ Outputs, all in one work folder:
 
 ## Install
 
-**As a plugin** (skills + the four agent types, recommended):
+### Claude Code plugin
+
+Five skills + four agent types:
 
 ```text
 /plugin marketplace add aleksandrermolov87-cloud/journey-audit
 /plugin install journey-audit@journey-audit
 ```
 
-**Skills only**, with the open skills CLI:
+### Codex plugin
+
+Five skills:
+
+```bash
+codex plugin marketplace add aleksandrermolov87-cloud/journey-audit
+codex plugin add journey-audit@journey-audit
+```
+
+Optional — the four agent types as Codex custom agents (without them the orchestrator spawns `default` subagents with the same briefs):
+
+```bash
+mkdir -p ~/.codex/agents
+cp ~/.codex/plugins/cache/journey-audit/journey-audit/*/codex/agents/*.toml ~/.codex/agents/
+```
+
+Restart Codex after installing. In Codex the skills appear as `journey-audit:journey-audit`, `journey-audit:journey-cjm` and so on.
+
+### Other agents
+
+Skills only, with the open skills CLI:
 
 ```bash
 npx skills add aleksandrermolov87-cloud/journey-audit
 ```
 
-**Manually** — clone and copy the five skill folders into your agent's skills directory:
+Or manually — clone and copy the five skill folders into your agent's skills directory:
 
 ```bash
 git clone https://github.com/aleksandrermolov87-cloud/journey-audit.git
@@ -94,7 +116,7 @@ Modes: full audit (default), quick (no personas, no expanded branches), one fami
 | [`journey-load`](skills/journey-load/SKILL.md) | Cognitive load family | Only load, AS IS vs TO BE |
 | [`journey-verdict`](skills/journey-verdict/SKILL.md) | Verdict, priorities, specs | Priorities and specs from existing findings |
 
-Agents (plugin install): `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor`, `journey-verdict`. Their briefs live in [`skills/journey-audit/agents/`](skills/journey-audit/agents).
+Agents: `journey-cjm-auditor`, `journey-edge-auditor`, `journey-load-auditor`, `journey-verdict` — Markdown definitions for Claude Code in [`agents/`](agents), TOML definitions for Codex in [`codex/agents/`](codex/agents). Both are thin wrappers over the shared briefs in [`skills/journey-audit/agents/`](skills/journey-audit/agents).
 
 Every skill ships in English (`SKILL.md`, `references/`) and Russian (`SKILL.ru.md`, `references/ru/`). The agent answers in the user's language.
 

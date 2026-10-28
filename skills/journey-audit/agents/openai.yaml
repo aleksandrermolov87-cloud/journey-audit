@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journey Audit"
+  short_description: "Full audit of a customer journey with priorities and specs"
+  default_prompt: "Audit this customer journey map and tell me what to fix first."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journey Logic"
+  short_description: "Check the logic of a customer journey map"
+  default_prompt: "Check only the logic of this customer journey map."

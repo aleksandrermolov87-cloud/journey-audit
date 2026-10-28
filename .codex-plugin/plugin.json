@@ -1,0 +1,29 @@
+{
+  "name": "journey-audit",
+  "version": "1.1.0",
+  "description": "Multi-agent customer journey audit for AI-generated CJMs and user flows: CJM logic, edge-case scenarios, simulated cognitive load, and a verdict with priorities P0–P2, goals with metrics and fix specs. English and Russian.",
+  "author": {"name": "aleksandrermolov87-cloud", "url": "https://github.com/aleksandrermolov87-cloud"},
+  "homepage": "https://github.com/aleksandrermolov87-cloud/journey-audit",
+  "repository": "https://github.com/aleksandrermolov87-cloud/journey-audit",
+  "license": "MIT",
+  "keywords": ["customer-journey-map", "cjm", "user-journey", "user-flow", "ux-audit", "usability", "edge-cases", "cognitive-load", "service-blueprint", "synthetic-users", "personas", "heuristic-evaluation", "klm", "product-design", "ux-research", "acceptance-criteria"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Journey Audit",
+    "shortDescription": "Audit customer journey maps: logic, edge cases, cognitive load, fix specs",
+    "longDescription": "Use Journey Audit to review a customer journey map, user flow or prototype — especially one drafted by AI. Three independent auditors check the logic of the map, the secondary and edge-case scenarios it skips (with synthetic personas), and the cognitive load of every step (load index, Keystroke-Level Model, fatigue, exit points). A verdict step merges the findings into priorities P0–P2, goals with metrics and implementation-ready specs with acceptance criteria. Works in English and Russian.",
+    "developerName": "aleksandrermolov87-cloud",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "websiteURL": "https://github.com/aleksandrermolov87-cloud/journey-audit",
+    "defaultPrompt": [
+      "Audit the customer journey map in docs/journey.md and tell me what to fix first.",
+      "What edge cases did we miss in this checkout flow?",
+      "Проверь CJM: логика, краевые сценарии, нагрузка. Дай приоритеты и спеки."
+    ],
+    "brandColor": "#5B4BD6",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.png",
+    "screenshots": []
+  }
+}

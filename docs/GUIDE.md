@@ -32,7 +32,9 @@ A journey written by an AI model is usually too smooth. Three independent audito
 
 ```mermaid
 flowchart LR
-    A[Your agent] -->|plugin marketplace| P[journey-audit plugin<br/>5 skills + 4 agents]
+    A[Your agent] -->|Claude Code plugin| P[journey-audit plugin<br/>5 skills + 4 agents]
+    A -->|Codex plugin| X[journey-audit plugin<br/>5 skills + 4 TOML agents]
+    X --> R
     A -->|skills CLI| S[5 skills]
     A -->|git clone + copy| M[skills folder]
     P --> R[Ready]
@@ -40,7 +42,7 @@ flowchart LR
     M --> R
 ```
 
-Pick one path from the [README](../README.md#install). The plugin path also registers the four agent types, so the auditors run as real parallel subagents. With the skills-only paths the orchestrator launches general-purpose subagents with the same briefs; without any subagents it runs the auditors one after another.
+Pick one path from the [README](../README.md#install). The Claude Code plugin also registers the four agent types (in Codex, copy `codex/agents/*.toml` to `~/.codex/agents/`), so the auditors run as real parallel subagents. With the skills-only paths the orchestrator launches general-purpose subagents with the same briefs; without any subagents it runs the auditors one after another.
 
 ## 3. Prepare the input
 
